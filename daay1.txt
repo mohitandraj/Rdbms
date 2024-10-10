@@ -1,0 +1,1033 @@
+Microsoft Windows [Version 10.0.18362.1316]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\Users\duasp>"C:\Program Files\MySQL\MySQL Server 9.0\bin\mysql.exe" -u root -p --port 3307
+Enter password: *****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 16
+Server version: 9.0.1 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| dronoctdb          |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> create database dronoctdb;
+ERROR 1007 (HY000): Can't create database 'dronoctdb'; database exists
+mysql> use dronoctdb;
+Database changed
+mysql> create table emp(empid integer, empname varchar(20), salary integer, hiredate date, address varchar(10), managerid integer);
+ERROR 1050 (42S01): Table 'emp' already exists
+mysql> use emp
+ERROR 1049 (42000): Unknown database 'emp'
+mysql> use table emp
+ERROR 1049 (42000): Unknown database 'table'
+mysql> use database emp
+ERROR 1049 (42000): Unknown database 'database'
+mysql> drop table emp;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table emp(empid integer, empname varchar(20), salary integer, hiredate date, address varchar(10), managerid integer);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table dept (deptid integer, dname varchar(20));
+ERROR 1050 (42S01): Table 'dept' already exists
+mysql> drop table dept
+    -> drop table dept;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'drop table dept' at line 2
+mysql> drop table dept;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table dept (deptid integer, dname varchar(20));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc dept
+    ->
+    -> desc dept;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'desc dept' at line 3
+mysql> desc dept;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| deptid | int         | YES  |     | NULL    |       |
+| dname  | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> alter table emp add(deptid integer);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table emp add constraint primary key(empid);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table dept add constraint primary key(deptid);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table emp add constraint fkemp foreign key(deptid) reference dept(deptid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'reference dept(deptid)' at line 1
+mysql> alter table emp add constraint fkemp foreign key(deptid) references dept(deptid);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into dept value (10,'HR');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from depts;
+ERROR 1146 (42S02): Table 'dronoctdb.depts' doesn't exist
+mysql> select * from dept;
++--------+-------+
+| deptid | dname |
++--------+-------+
+|     10 | HR    |
++--------+-------+
+1 row in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> set autocommit=0;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into dept values (20, 'Accounts');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from dept;
++--------+----------+
+| deptid | dname    |
++--------+----------+
+|     10 | HR       |
+|     20 | Accounts |
++--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from dept;
++--------+-------+
+| deptid | dname |
++--------+-------+
+|     10 | HR    |
++--------+-------+
+1 row in set (0.00 sec)
+
+mysql> insert into dept values (30, 'Insurance');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into dept values (40, 'IT Operations');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| dronoctdb          |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> use dronoctdb;
+Database changed
+mysql> desc dept;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| deptid | int         | NO   | PRI | NULL    |       |
+| dname  | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql>  select * from emp;
+Empty set (0.00 sec)
+
+mysql> desc emp;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| empid     | int         | NO   | PRI | NULL    |       |
+| empname   | varchar(20) | YES  |     | NULL    |       |
+| salary    | int         | YES  |     | NULL    |       |
+| hiredate  | date        | YES  |     | NULL    |       |
+| address   | varchar(10) | YES  |     | NULL    |       |
+| managerid | int         | YES  |     | NULL    |       |
+| deptid    | int         | YES  | MUL | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> insert into emp values(101,'King',50000,'2020-09-09','Delhi',NULL,100);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`dronoctdb`.`emp`, CONSTRAINT `fkemp` FOREIGN KEY (`deptid`) REFERENCES `dept` (`deptid`))
+mysql> insert into emp values(102,'John',45000,'2020-10-09','Pune',101,10);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into emp values(103,'Jay',40000,'2020-10-09','Mumbai',102,20);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`dronoctdb`.`emp`, CONSTRAINT `fkemp` FOREIGN KEY (`deptid`) REFERENCES `dept` (`deptid`))
+mysql> select * from emp;
++-------+---------+--------+------------+---------+-----------+--------+
+| empid | empname | salary | hiredate   | address | managerid | deptid |
++-------+---------+--------+------------+---------+-----------+--------+
+|   102 | John    |  45000 | 2020-10-09 | Pune    |       101 |     10 |
++-------+---------+--------+------------+---------+-----------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from dept;
++--------+---------------+
+| deptid | dname         |
++--------+---------------+
+|     10 | HR            |
+|     30 | Insurance     |
+|     40 | IT Operations |
++--------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into emp values(103,'Jay',40000,'2020-10-09','Mumbai',102,30);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into emp values(104,'Nidhi',25000,'2020-10-09','Mumbai',101,40);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> set autocommit=0;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from dept;
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`dronoctdb`.`emp`, CONSTRAINT `fkemp` FOREIGN KEY (`deptid`) REFERENCES `dept` (`deptid`))
+mysql> delete from emp;
+Query OK, 3 rows affected (0.00 sec)
+
+mysql> select * from emp;
+Empty set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from emp;
++-------+---------+--------+------------+---------+-----------+--------+
+| empid | empname | salary | hiredate   | address | managerid | deptid |
++-------+---------+--------+------------+---------+-----------+--------+
+|   102 | John    |  45000 | 2020-10-09 | Pune    |       101 |     10 |
+|   103 | Jay     |  40000 | 2020-10-09 | Mumbai  |       102 |     30 |
+|   104 | Nidhi   |  25000 | 2020-10-09 | Mumbai  |       101 |     40 |
++-------+---------+--------+------------+---------+-----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> delete from emp where empid=104;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from emp;
++-------+---------+--------+------------+---------+-----------+--------+
+| empid | empname | salary | hiredate   | address | managerid | deptid |
++-------+---------+--------+------------+---------+-----------+--------+
+|   102 | John    |  45000 | 2020-10-09 | Pune    |       101 |     10 |
+|   103 | Jay     |  40000 | 2020-10-09 | Mumbai  |       102 |     30 |
+|   104 | Nidhi   |  25000 | 2020-10-09 | Mumbai  |       101 |     40 |
++-------+---------+--------+------------+---------+-----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> update emp
+    -> set salary=100000
+    -> where empid=101;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> desc emp;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| empid     | int         | NO   | PRI | NULL    |       |
+| empname   | varchar(20) | YES  |     | NULL    |       |
+| salary    | int         | YES  |     | NULL    |       |
+| hiredate  | date        | YES  |     | NULL    |       |
+| address   | varchar(10) | YES  |     | NULL    |       |
+| managerid | int         | YES  |     | NULL    |       |
+| deptid    | int         | YES  | MUL | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select * from emp
+    -> select * from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select * from emp' at line 2
+mysql> select * from emp;
++-------+---------+--------+------------+---------+-----------+--------+
+| empid | empname | salary | hiredate   | address | managerid | deptid |
++-------+---------+--------+------------+---------+-----------+--------+
+|   102 | John    |  45000 | 2020-10-09 | Pune    |       101 |     10 |
+|   103 | Jay     |  40000 | 2020-10-09 | Mumbai  |       102 |     30 |
+|   104 | Nidhi   |  25000 | 2020-10-09 | Mumbai  |       101 |     40 |
++-------+---------+--------+------------+---------+-----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select current_date();
++----------------+
+| current_date() |
++----------------+
+| 2024-10-09     |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select concat ('Hello','  WOrld');
++----------------------------+
+| concat ('Hello','  WOrld') |
++----------------------------+
+| Hello  WOrld               |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> select concat(ename,concat('has', salary);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select concat(ename,concat('has', salary));
+ERROR 1054 (42S22): Unknown column 'ename' in 'field list'
+mysql> select concat(ename,concat('has', salary)) from emp;
+ERROR 1054 (42S22): Unknown column 'ename' in 'field list'
+mysql> select concat(ename,concat('has', salary)) from emp;
+ERROR 1054 (42S22): Unknown column 'ename' in 'field list'
+mysql> select upper(ename) from emp;
+ERROR 1054 (42S22): Unknown column 'ename' in 'field list'
+mysql> select substr(ename, 1,3);
+ERROR 1054 (42S22): Unknown column 'ename' in 'field list'
+mysql> select concat(ename,concat('has', salary)) from emp;
+ERROR 1054 (42S22): Unknown column 'ename' in 'field list'
+mysql> select round(15.52,0);
++----------------+
+| round(15.52,0) |
++----------------+
+|             16 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select round(15.52,1);
++----------------+
+| round(15.52,1) |
++----------------+
+|           15.5 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select round(15.52,-1);
++-----------------+
+| round(15.52,-1) |
++-----------------+
+|              20 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select round(14.52,-1);
++-----------------+
+| round(14.52,-1) |
++-----------------+
+|              10 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select round(14.52,-2);
++-----------------+
+| round(14.52,-2) |
++-----------------+
+|               0 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select round(55.52,-2);
++-----------------+
+| round(55.52,-2) |
++-----------------+
+|             100 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select date_add(current_date(), interval 1 day);
++------------------------------------------+
+| date_add(current_date(), interval 1 day) |
++------------------------------------------+
+| 2024-10-10                               |
++------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_add('2024-10-10','%a%b%M');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''%a%b%M')' at line 1
+mysql> ^C
+mysql> select date_add('2024-10-10','%a%b%M');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''%a%b%M')' at line 1
+mysql> select date_format('2024-10-10','%a%b%M');
++------------------------------------+
+| date_format('2024-10-10','%a%b%M') |
++------------------------------------+
+| ThuOctOctober                      |
++------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format('2024-10-10','%a%d%M');
++------------------------------------+
+| date_format('2024-10-10','%a%d%M') |
++------------------------------------+
+| Thu10October                       |
++------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> ^C
+mysql> SELECT LENGTH('text');
++----------------+
+| LENGTH('text') |
++----------------+
+|              4 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select lenght ('MOHIT');
+ERROR 1305 (42000): FUNCTION dronoctdb.lenght does not exist
+mysql> SELECT LENGTH('MOHIT');
++-----------------+
+| LENGTH('MOHIT') |
++-----------------+
+|               5 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LOWER('QUADRATICALLY');
++------------------------+
+| LOWER('QUADRATICALLY') |
++------------------------+
+| quadratically          |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> SET @str = BINARY 'New York';
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql> mysql> SELECT LOWER(@str), LOWER(CONVERT(@str USING utf8mb4));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> SELECT LOWER(@str), LOWER(CONVERT(@str USING utf8mb4))' at line 1
+mysql> SELECT LPAD('hello',4,'??');
++----------------------+
+| LPAD('hello',4,'??') |
++----------------------+
+| hell                 |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LPAD('hello',4,'bn');
++----------------------+
+| LPAD('hello',4,'bn') |
++----------------------+
+| hell                 |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LPAD('hello',5,'??');
++----------------------+
+| LPAD('hello',5,'??') |
++----------------------+
+| hello                |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LPAD('hello',5,'2');
++---------------------+
+| LPAD('hello',5,'2') |
++---------------------+
+| hello               |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LPAD('hello',6,'??');
++----------------------+
+| LPAD('hello',6,'??') |
++----------------------+
+| ?hello               |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LPAD('hello',9,'**');
++----------------------+
+| LPAD('hello',9,'**') |
++----------------------+
+| ****hello            |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LTRIM('  barbar');
++-------------------+
+| LTRIM('  barbar') |
++-------------------+
+| barbar            |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT REPLACE('www.mysql.com', 'w', 'Ww');
++-------------------------------------+
+| REPLACE('www.mysql.com', 'w', 'Ww') |
++-------------------------------------+
+| WwWwWw.mysql.com                    |
++-------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT REPLACE('www.mysql.com', 'w', 'P');
++------------------------------------+
+| REPLACE('www.mysql.com', 'w', 'P') |
++------------------------------------+
+| PPP.mysql.com                      |
++------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT REVERSE('abc');
++----------------+
+| REVERSE('abc') |
++----------------+
+| cba            |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SUBSTRING('Vyankatesh' FROM -4 FOR 2);
++---------------------------------------+
+| SUBSTRING('Vyankatesh' FROM -4 FOR 2) |
++---------------------------------------+
+| te                                    |
++---------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SUBSTRING('Vyankatesh' FROM -4 FOR 5);
++---------------------------------------+
+| SUBSTRING('Vyankatesh' FROM -4 FOR 5) |
++---------------------------------------+
+| tesh                                  |
++---------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SUBSTRING('Vyankatesh' FROM 3 FOR 5);
++--------------------------------------+
+| SUBSTRING('Vyankatesh' FROM 3 FOR 5) |
++--------------------------------------+
+| ankat                                |
++--------------------------------------+
+1 row in set (0.00 sec)
+
+mysql>   SELECT UPPER('hello');
++----------------+
+| UPPER('hello') |
++----------------+
+| HELLO          |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> mysql> SELECT TO_BASE64('abc'), FROM_BASE64(TO_BASE64('abc'));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> SELECT TO_BASE64('abc'), FROM_BASE64(TO_BASE64('abc'))' at line 1
+mysql> mysql> SELECT TO_BASE64('abc'), FROM_BASE64(TO_BASE64('abc'));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> SELECT TO_BASE64('abc'), FROM_BASE64(TO_BASE64('abc'))' at line 1
+mysql> SELECT TO_BASE64('abc'), FROM_BASE64(TO_BASE64('abc'));
++------------------+--------------------------------------------------------------+
+| TO_BASE64('abc') | FROM_BASE64(TO_BASE64('abc'))                                |
++------------------+--------------------------------------------------------------+
+| YWJj             | 0x616263                                                     |
++------------------+--------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFMONTH('2001-11-00'), MONTH('2005-00-00');
++--------------------------+---------------------+
+| DAYOFMONTH('2001-11-00') | MONTH('2005-00-00') |
++--------------------------+---------------------+
+|                        0 |                   0 |
++--------------------------+---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFMONTH('2001-11-10'), MONTH('2005-00-10');
++--------------------------+---------------------+
+| DAYOFMONTH('2001-11-10') | MONTH('2005-00-10') |
++--------------------------+---------------------+
+|                       10 |                   0 |
++--------------------------+---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFMONTH('2001-11-10'), MONTH('2005-05-00');
++--------------------------+---------------------+
+| DAYOFMONTH('2001-11-10') | MONTH('2005-05-00') |
++--------------------------+---------------------+
+|                       10 |                   5 |
++--------------------------+---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFMONTH('2001-11-00'), MONTH('2005-00-00');
++--------------------------+---------------------+
+| DAYOFMONTH('2001-11-00') | MONTH('2005-00-00') |
++--------------------------+---------------------+
+|                        0 |                   0 |
++--------------------------+---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFMONTH('2001-11-05'), MONTH('2005-00-00');
++--------------------------+---------------------+
+| DAYOFMONTH('2001-11-05') | MONTH('2005-00-00') |
++--------------------------+---------------------+
+|                        5 |                   0 |
++--------------------------+---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFMONTH('2001-11-05'), MONTH('2005-12-00');
++--------------------------+---------------------+
+| DAYOFMONTH('2001-11-05') | MONTH('2005-12-00') |
++--------------------------+---------------------+
+|                        5 |                  12 |
++--------------------------+---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFMONTH('2001-11-05'), MONTH('2005-12-00'), YEAR('2012-11-07');
++--------------------------+---------------------+--------------------+
+| DAYOFMONTH('2001-11-05') | MONTH('2005-12-00') | YEAR('2012-11-07') |
++--------------------------+---------------------+--------------------+
+|                        5 |                  12 |               2012 |
++--------------------------+---------------------+--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_ADD('2006-05-00',INTERVAL 1 DAY);
++---------------------------------------+
+| DATE_ADD('2006-05-00',INTERVAL 1 DAY) |
++---------------------------------------+
+| NULL                                  |
++---------------------------------------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> SELECT DATE_ADD('2006-05-01',INTERVAL 1 DAY);
++---------------------------------------+
+| DATE_ADD('2006-05-01',INTERVAL 1 DAY) |
++---------------------------------------+
+| 2006-05-02                            |
++---------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_ADD('2006-05-01',INTERVAL 10 DAY);
++----------------------------------------+
+| DATE_ADD('2006-05-01',INTERVAL 10 DAY) |
++----------------------------------------+
+| 2006-05-11                             |
++----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_ADD('2006-05-01',INTERVAL 40 DAY);
++----------------------------------------+
+| DATE_ADD('2006-05-01',INTERVAL 40 DAY) |
++----------------------------------------+
+| 2006-06-10                             |
++----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ADDTIME('2007-12-31 23:59:59.999999', '1 1:1:1.000002');
++---------------------------------------------------------+
+| ADDTIME('2007-12-31 23:59:59.999999', '1 1:1:1.000002') |
++---------------------------------------------------------+
+| 2008-01-02 01:01:01.000001                              |
++---------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ADDTIME('2007-10-31 23:59:59.999999', '1 1:1:1.000002');
++---------------------------------------------------------+
+| ADDTIME('2007-10-31 23:59:59.999999', '1 1:1:1.000002') |
++---------------------------------------------------------+
+| 2007-11-02 01:01:01.000001                              |
++---------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ADDTIME('2007-10-31 22:59:59.999999', '1 1:1:1.000002');
++---------------------------------------------------------+
+| ADDTIME('2007-10-31 22:59:59.999999', '1 1:1:1.000002') |
++---------------------------------------------------------+
+| 2007-11-02 00:01:01.000001                              |
++---------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ADDTIME('2007-10-31 22:59:59.999999', '1:1:1.000002');
++-------------------------------------------------------+
+| ADDTIME('2007-10-31 22:59:59.999999', '1:1:1.000002') |
++-------------------------------------------------------+
+| 2007-11-01 00:01:01.000001                            |
++-------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ADDTIME('2007-10-31 22:55:59.999999', '1:1:1.000002');
++-------------------------------------------------------+
+| ADDTIME('2007-10-31 22:55:59.999999', '1:1:1.000002') |
++-------------------------------------------------------+
+| 2007-10-31 23:57:01.000001                            |
++-------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ADDTIME('2007-10-31 22:55:59.999999', '1:1.000002');
++-----------------------------------------------------+
+| ADDTIME('2007-10-31 22:55:59.999999', '1:1.000002') |
++-----------------------------------------------------+
+| 2007-10-31 23:57:00.000001                          |
++-----------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ADDTIME('2007-10-31 22:55:59.999999', '0:1:1.000002');
++-------------------------------------------------------+
+| ADDTIME('2007-10-31 22:55:59.999999', '0:1:1.000002') |
++-------------------------------------------------------+
+| 2007-10-31 22:57:01.000001                            |
++-------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CONVERT_TZ('2004-01-01 12:00:00','GMT','IST');
++-----------------------------------------------+
+| CONVERT_TZ('2004-01-01 12:00:00','GMT','IST') |
++-----------------------------------------------+
+| NULL                                          |
++-----------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CONVERT_TZ('2004-01-01 12:00:00','GMT','EST');
++-----------------------------------------------+
+| CONVERT_TZ('2004-01-01 12:00:00','GMT','EST') |
++-----------------------------------------------+
+| NULL                                          |
++-----------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CONVERT_TZ('2004-01-01 12:00:00','GMT','IST');
++-----------------------------------------------+
+| CONVERT_TZ('2004-01-01 12:00:00','GMT','IST') |
++-----------------------------------------------+
+| NULL                                          |
++-----------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CONVERT_TZ('2004-01-01 12:00:00','GMT','MET');
++-----------------------------------------------+
+| CONVERT_TZ('2004-01-01 12:00:00','GMT','MET') |
++-----------------------------------------------+
+| NULL                                          |
++-----------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CONVERT_TZ('2004-01-01 12:00:00','GMT','MET');
++-----------------------------------------------+
+| CONVERT_TZ('2004-01-01 12:00:00','GMT','MET') |
++-----------------------------------------------+
+| NULL                                          |
++-----------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CONVERT_TZ('2004-05-02 05:30:00','GMT','MET');
++-----------------------------------------------+
+| CONVERT_TZ('2004-05-02 05:30:00','GMT','MET') |
++-----------------------------------------------+
+| NULL                                          |
++-----------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CONVERT_TZ('2004-01-01 12:00:00','+00:00','+10:00');
++-----------------------------------------------------+
+| CONVERT_TZ('2004-01-01 12:00:00','+00:00','+10:00') |
++-----------------------------------------------------+
+| 2004-01-01 22:00:00                                 |
++-----------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CONVERT_TZ('2004-05-02 05:30:00','GMT','MET');
++-----------------------------------------------+
+| CONVERT_TZ('2004-05-02 05:30:00','GMT','MET') |
++-----------------------------------------------+
+| NULL                                          |
++-----------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATEDIFF('2007-12-31 23:59:59','2007-12-30');
++----------------------------------------------+
+| DATEDIFF('2007-12-31 23:59:59','2007-12-30') |
++----------------------------------------------+
+|                                            1 |
++----------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATEDIFF('2007-12-31 23:59:59','2007-12-25');
++----------------------------------------------+
+| DATEDIFF('2007-12-31 23:59:59','2007-12-25') |
++----------------------------------------------+
+|                                            6 |
++----------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYNAME('2007-02-03');^B
++-----------------------+
+| DAYNAME('2007-02-03') |
++-----------------------+
+| Saturday              |
++-----------------------+
+1 row in set (0.00 sec)
+
+    -> SELECT DAYNAME('2002-20-05');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '
+SELECT DAYNAME('2002-20-05')' at line 1
+mysql> SELECT DAYNAME('2007-02-03');
++-----------------------+
+| DAYNAME('2007-02-03') |
++-----------------------+
+| Saturday              |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYNAME('2007-05-20');
++-----------------------+
+| DAYNAME('2007-05-20') |
++-----------------------+
+| Sunday                |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYNAME('2002-05-20');
++-----------------------+
+| DAYNAME('2002-05-20') |
++-----------------------+
+| Monday                |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFWEEK('2007-02-03');
++-------------------------+
+| DAYOFWEEK('2007-02-03') |
++-------------------------+
+|                       7 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFWEEK('2007-02-05');
++-------------------------+
+| DAYOFWEEK('2007-02-05') |
++-------------------------+
+|                       2 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFYEAR('2007-12-30')
+    -> SELECT DAYOFYEAR('2007-12-30')
+    -> SELECT DAYOFYEAR('2007-12-30');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT DAYOFYEAR('2007-12-30')
+SELECT DAYOFYEAR('2007-12-30')' at line 2
+mysql> SELECT DAYOFYEAR('2007-12-30');
++-------------------------+
+| DAYOFYEAR('2007-12-30') |
++-------------------------+
+|                     364 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LAST_DAY('2003-02-05');
++------------------------+
+| LAST_DAY('2003-02-05') |
++------------------------+
+| 2003-02-28             |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LAST_DAY('2003-05-05');
++------------------------+
+| LAST_DAY('2003-05-05') |
++------------------------+
+| 2003-05-31             |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LAST_DAY('2003-06-05');
++------------------------+
+| LAST_DAY('2003-06-05') |
++------------------------+
+| 2003-06-30             |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LAST_DAY('2024-02-05');
++------------------------+
+| LAST_DAY('2024-02-05') |
++------------------------+
+| 2024-02-29             |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LAST_DAY('2025-02-05');
++------------------------+
+| LAST_DAY('2025-02-05') |
++------------------------+
+| 2025-02-28             |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LAST_DAY('2028-02-05');
++------------------------+
+| LAST_DAY('2028-02-05') |
++------------------------+
+| 2028-02-29             |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MONTH('2008-12-03');
++---------------------+
+| MONTH('2008-12-03') |
++---------------------+
+|                  12 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MONTH('2008-13-03');
++---------------------+
+| MONTH('2008-13-03') |
++---------------------+
+|                NULL |
++---------------------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> SELECT NOW();
++---------------------+
+| NOW()               |
++---------------------+
+| 2024-10-09 15:54:25 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> SELECT NOW();
++---------------------+
+| NOW()               |
++---------------------+
+| 2024-10-09 15:54:34 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT NOW();
++---------------------+
+| NOW()               |
++---------------------+
+| 2024-10-09 15:54:36 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT YEARWEEK('1987-01-01');
++------------------------+
+| YEARWEEK('1987-01-01') |
++------------------------+
+|                 198652 |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT YEARWEEK('2024-10-09');
++------------------------+
+| YEARWEEK('2024-10-09') |
++------------------------+
+|                 202440 |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT YEARWEEK('1987-02-01');
++------------------------+
+| YEARWEEK('1987-02-01') |
++------------------------+
+|                 198705 |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT YEARWEEK('1987-01-02');
++------------------------+
+| YEARWEEK('1987-01-02') |
++------------------------+
+|                 198652 |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT YEARWEEK('1987-02-01');
++------------------------+
+| YEARWEEK('1987-02-01') |
++------------------------+
+|                 198705 |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT YEARWEEK('2024-10-09');
++------------------------+
+| YEARWEEK('2024-10-09') |
++------------------------+
+|                 202440 |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT YEARWEEK('2024-09-09');
++------------------------+
+| YEARWEEK('2024-09-09') |
++------------------------+
+|                 202436 |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT YEARWEEK('2024-11-09');
++------------------------+
+| YEARWEEK('2024-11-09') |
++------------------------+
+|                 202444 |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT YEARWEEK('1111-01-01');
++------------------------+
+| YEARWEEK('1111-01-01') |
++------------------------+
+|                 111101 |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT YEARWEEK('11-01-01');
++----------------------+
+| YEARWEEK('11-01-01') |
++----------------------+
+|               201052 |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT YEARWEEK('0000-01-01');
++------------------------+
+| YEARWEEK('0000-01-01') |
++------------------------+
+|                      1 |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT YEARWEEK('0000-00-01');
++------------------------+
+| YEARWEEK('0000-00-01') |
++------------------------+
+|                   NULL |
++------------------------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql>
