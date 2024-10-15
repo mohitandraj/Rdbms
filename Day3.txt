@@ -1,0 +1,829 @@
+Microsoft Windows [Version 10.0.18362.1316]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\Users\duasp>"C:\Program Files\MySQL\MySQL Server 9.0\bin\mysql.exe" -u root -p --port 3307
+Enter password: *****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 29
+Server version: 9.0.1 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databses;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'databses' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| dcm1               |
+| drone2             |
+| information_schema |
+| mohitnraj          |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+9 rows in set (0.00 sec)
+
+mysql> use mohitnraj;
+Database changed
+mysql> select * from emp;
++-------+-------+--------+------------+-----------+-----------+--------+
+| empid | ename | salary | hiredate   | address   | managerid | deptid |
++-------+-------+--------+------------+-----------+-----------+--------+
+|   101 | King  |  50000 | 2020-09-09 | Delhi     |      NULL |     10 |
+|   102 | John  |  45000 | 2020-10-09 | Pune      |       101 |     10 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai    |       102 |     20 |
+|   104 | Nidhi |  25000 | 2021-10-09 | Mumbai    |       101 |     40 |
+|   105 | Mohit |  25000 | 2021-09-09 | Pune      |       103 |     40 |
+|   106 | Venky |  45000 | 2023-04-07 | Chennai   |       102 |     30 |
+|   107 | Ojas  |  48000 | 2023-05-11 | Ratnagiri |       103 |   NULL |
++-------+-------+--------+------------+-----------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select sum(salary) from emp;
++-------------+
+| sum(salary) |
++-------------+
+|      278000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(salary) from emp;
++-------------+
+| sum(salary) |
++-------------+
+|      278000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary) from emp;
++-------------+
+| max(salary) |
++-------------+
+|       50000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select min(salary) from emp;
++-------------+
+| min(salary) |
++-------------+
+|       25000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(salary) from emp;
++-------------+
+| avg(salary) |
++-------------+
+|  39714.2857 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp;
++-------+-------+--------+------------+-----------+-----------+--------+
+| empid | ename | salary | hiredate   | address   | managerid | deptid |
++-------+-------+--------+------------+-----------+-----------+--------+
+|   101 | King  |  50000 | 2020-09-09 | Delhi     |      NULL |     10 |
+|   102 | John  |  45000 | 2020-10-09 | Pune      |       101 |     10 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai    |       102 |     20 |
+|   104 | Nidhi |  25000 | 2021-10-09 | Mumbai    |       101 |     40 |
+|   105 | Mohit |  25000 | 2021-09-09 | Pune      |       103 |     40 |
+|   106 | Venky |  45000 | 2023-04-07 | Chennai   |       102 |     30 |
+|   107 | Ojas  |  48000 | 2023-05-11 | Ratnagiri |       103 |   NULL |
++-------+-------+--------+------------+-----------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select count(manager_id) from emp;
+ERROR 1054 (42S22): Unknown column 'manager_id' in 'field list'
+mysql> select count(managerid) from emp;
++------------------+
+| count(managerid) |
++------------------+
+|                6 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from emp;
++----------+
+| count(*) |
++----------+
+|        7 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(1) from emp;
++----------+
+| count(1) |
++----------+
+|        7 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(10000) from emp;
++--------------+
+| count(10000) |
++--------------+
+|            7 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select count('A') from emp;
++------------+
+| count('A') |
++------------+
+|          7 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select count('M') from emp;
++------------+
+| count('M') |
++------------+
+|          7 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(salary) from emp group by deptid;
++-------------+
+| avg(salary) |
++-------------+
+|  48000.0000 |
+|  47500.0000 |
+|  40000.0000 |
+|  45000.0000 |
+|  25000.0000 |
++-------------+
+5 rows in set (0.00 sec)
+
+mysql> select deptid,avg(salary) from emp group by deptid;
++--------+-------------+
+| deptid | avg(salary) |
++--------+-------------+
+|   NULL |  48000.0000 |
+|     10 |  47500.0000 |
+|     20 |  40000.0000 |
+|     30 |  45000.0000 |
+|     40 |  25000.0000 |
++--------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select deptid, avg(salary) from emp group by deptid having avg(salary)> 25000;
++--------+-------------+
+| deptid | avg(salary) |
++--------+-------------+
+|   NULL |  48000.0000 |
+|     10 |  47500.0000 |
+|     20 |  40000.0000 |
+|     30 |  45000.0000 |
++--------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select sum(salary), max(salary), min(salary), avg(salary) from emp;
++-------------+-------------+-------------+-------------+
+| sum(salary) | max(salary) | min(salary) | avg(salary) |
++-------------+-------------+-------------+-------------+
+|      278000 |       50000 |       25000 |  39714.2857 |
++-------------+-------------+-------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(salary) as sum, max(salary) as maximum, min(salary) as minimum, avg(salary) as average;
+ERROR 1054 (42S22): Unknown column 'salary' in 'field list'
+mysql> select sum(salary) as sum, max(salary) as maximum, min(salary) as minimum, avg(salary) as average from emp;
++--------+---------+---------+------------+
+| sum    | maximum | minimum | average    |
++--------+---------+---------+------------+
+| 278000 |   50000 |   25000 | 39714.2857 |
++--------+---------+---------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp;
++-------+-------+--------+------------+-----------+-----------+--------+
+| empid | ename | salary | hiredate   | address   | managerid | deptid |
++-------+-------+--------+------------+-----------+-----------+--------+
+|   101 | King  |  50000 | 2020-09-09 | Delhi     |      NULL |     10 |
+|   102 | John  |  45000 | 2020-10-09 | Pune      |       101 |     10 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai    |       102 |     20 |
+|   104 | Nidhi |  25000 | 2021-10-09 | Mumbai    |       101 |     40 |
+|   105 | Mohit |  25000 | 2021-09-09 | Pune      |       103 |     40 |
+|   106 | Venky |  45000 | 2023-04-07 | Chennai   |       102 |     30 |
+|   107 | Ojas  |  48000 | 2023-05-11 | Ratnagiri |       103 |   NULL |
++-------+-------+--------+------------+-----------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select sum(salary) as sum, max(salary) as maximum, min(salary) as minimum, avg(salary) as average from emp group by deptid;
++-------+---------+---------+------------+
+| sum   | maximum | minimum | average    |
++-------+---------+---------+------------+
+| 48000 |   48000 |   48000 | 48000.0000 |
+| 95000 |   50000 |   45000 | 47500.0000 |
+| 40000 |   40000 |   40000 | 40000.0000 |
+| 45000 |   45000 |   45000 | 45000.0000 |
+| 50000 |   25000 |   25000 | 25000.0000 |
++-------+---------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select deptid, sum(salary) as sum, max(salary) as maximum, min(salary) as minimum, avg(salary) as average from emp group by deptid;
++--------+-------+---------+---------+------------+
+| deptid | sum   | maximum | minimum | average    |
++--------+-------+---------+---------+------------+
+|   NULL | 48000 |   48000 |   48000 | 48000.0000 |
+|     10 | 95000 |   50000 |   45000 | 47500.0000 |
+|     20 | 40000 |   40000 |   40000 | 40000.0000 |
+|     30 | 45000 |   45000 |   45000 | 45000.0000 |
+|     40 | 50000 |   25000 |   25000 | 25000.0000 |
++--------+-------+---------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> set autocommit=0;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>  select 1 from emo;
+ERROR 1146 (42S02): Table 'mohitnraj.emo' doesn't exist
+mysql>  select 1 from emp;
++---+
+| 1 |
++---+
+| 1 |
+| 1 |
+| 1 |
+| 1 |
+| 1 |
+| 1 |
+| 1 |
++---+
+7 rows in set (0.00 sec)
+
+mysql>  select 'A' from emp;
++---+
+| A |
++---+
+| A |
+| A |
+| A |
+| A |
+| A |
+| A |
+| A |
++---+
+7 rows in set (0.00 sec)
+
+mysql> select deptid, sum(salary) as sum, max(salary) as maximum, min(salary) as minimum, avg(salary) as average desc from emp group by deptid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'desc from emp group by deptid' at line 1
+mysql> select deptid, sum(salary) as sum, max(salary) as maximum, min(salary) as minimum, avg(salary) as average from emp group by deptid;
++--------+-------+---------+---------+------------+
+| deptid | sum   | maximum | minimum | average    |
++--------+-------+---------+---------+------------+
+|   NULL | 48000 |   48000 |   48000 | 48000.0000 |
+|     10 | 95000 |   50000 |   45000 | 47500.0000 |
+|     20 | 40000 |   40000 |   40000 | 40000.0000 |
+|     30 | 45000 |   45000 |   45000 | 45000.0000 |
+|     40 | 50000 |   25000 |   25000 | 25000.0000 |
++--------+-------+---------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select deptid, sum(salary) as sum, max(salary) as maximum, min(salary) as minimum, avg(salary) as average from emp group by deptid desc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'desc' at line 1
+mysql> select deptid, sum(salary) as sum, max(salary) as maximum, min(salary) as minimum, avg(salary) as average from emp group by deptid aesc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'aesc' at line 1
+mysql> select deptid, sum(salary) as sum, max(salary) as maximum, min(salary) as minimum, avg(salary) as average from emp group by deptid asc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'asc' at line 1
+mysql> select deptid, sum(salary) as sum, max(salary) as maximum, min(salary) as minimum, avg(salary) as average from emp group by deptid ASC;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ASC' at line 1
+mysql> select deptid, sum(salary) as sum, max(salary) as maximum, min(salary) as minimum, avg(salary) as average from emp group by deptid
+    -> ORDER BY salary ASC;
+ERROR 1055 (42000): Expression #1 of ORDER BY clause is not in GROUP BY clause and contains nonaggregated column 'mohitnraj.emp.salary' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select * from emp;
++-------+-------+--------+------------+-----------+-----------+--------+
+| empid | ename | salary | hiredate   | address   | managerid | deptid |
++-------+-------+--------+------------+-----------+-----------+--------+
+|   101 | King  |  50000 | 2020-09-09 | Delhi     |      NULL |     10 |
+|   102 | John  |  45000 | 2020-10-09 | Pune      |       101 |     10 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai    |       102 |     20 |
+|   104 | Nidhi |  25000 | 2021-10-09 | Mumbai    |       101 |     40 |
+|   105 | Mohit |  25000 | 2021-09-09 | Pune      |       103 |     40 |
+|   106 | Venky |  45000 | 2023-04-07 | Chennai   |       102 |     30 |
+|   107 | Ojas  |  48000 | 2023-05-11 | Ratnagiri |       103 |   NULL |
++-------+-------+--------+------------+-----------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select count(deptid) from emp;
++---------------+
+| count(deptid) |
++---------------+
+|             6 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select count(deptid) group by deptid from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from emp' at line 1
+mysql> select count('deptid') from emp;
++-----------------+
+| count('deptid') |
++-----------------+
+|               7 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select count('deptid')group by from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from emp' at line 1
+mysql> select count('deptid')group by from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from emp' at line 1
+mysql> select * from emp where empid=101;
++-------+-------+--------+------------+---------+-----------+--------+
+| empid | ename | salary | hiredate   | address | managerid | deptid |
++-------+-------+--------+------------+---------+-----------+--------+
+|   101 | King  |  50000 | 2020-09-09 | Delhi   |      NULL |     10 |
++-------+-------+--------+------------+---------+-----------+--------+
+1 row in set (0.00 sec)
+
+mysql> select deptid , count(deptid)
+    -> from emp
+    -> group by deptid;
++--------+---------------+
+| deptid | count(deptid) |
++--------+---------------+
+|   NULL |             0 |
+|     10 |             2 |
+|     20 |             1 |
+|     30 |             1 |
+|     40 |             2 |
++--------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> select deptid, count(deptid) from emp group by deptid;
++--------+---------------+
+| deptid | count(deptid) |
++--------+---------------+
+|   NULL |             0 |
+|     10 |             2 |
+|     20 |             1 |
+|     30 |             1 |
+|     40 |             2 |
++--------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> select count(managerid) from emp;
++------------------+
+| count(managerid) |
++------------------+
+|                6 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select difference('max(salary)','min(salary));
+    '> ;
+    '> select difference('max(salary)','min(salary)');
+    '> ;
+    '> select ^Cfference('max(salary)','min(salary)');
+mysql> select difference('max(salary)','min(salary)');
+ERROR 1305 (42000): FUNCTION mohitnraj.difference does not exist
+mysql> select difference(max(salary),min(salary));
+ERROR 1305 (42000): FUNCTION mohitnraj.difference does not exist
+mysql> select difference(max(salary),min(salary)) from emp;
+ERROR 1305 (42000): FUNCTION mohitnraj.difference does not exist
+mysql> select max(salary) - min(salary) from emp;
++---------------------------+
+| max(salary) - min(salary) |
++---------------------------+
+|                     25000 |
++---------------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp;
++-------+-------+--------+------------+-----------+-----------+--------+
+| empid | ename | salary | hiredate   | address   | managerid | deptid |
++-------+-------+--------+------------+-----------+-----------+--------+
+|   101 | King  |  50000 | 2020-09-09 | Delhi     |      NULL |     10 |
+|   102 | John  |  45000 | 2020-10-09 | Pune      |       101 |     10 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai    |       102 |     20 |
+|   104 | Nidhi |  25000 | 2021-10-09 | Mumbai    |       101 |     40 |
+|   105 | Mohit |  25000 | 2021-09-09 | Pune      |       103 |     40 |
+|   106 | Venky |  45000 | 2023-04-07 | Chennai   |       102 |     30 |
+|   107 | Ojas  |  48000 | 2023-05-11 | Ratnagiri |       103 |   NULL |
++-------+-------+--------+------------+-----------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select min(salary) from emp;
++-------------+
+| min(salary) |
++-------------+
+|       25000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select min(salary) group by managerid from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from emp' at line 1
+mysql> select min(salary) from emp group by manager id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'id' at line 1
+mysql> select min(salary) from emp group by managerid;
++-------------+
+| min(salary) |
++-------------+
+|       50000 |
+|       25000 |
+|       40000 |
+|       25000 |
++-------------+
+4 rows in set (0.00 sec)
+
+mysql> select managerid, min(salary) from emp;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'mohitnraj.emp.managerid'; this is incompatible with sql_mode=only_full_group_by
+mysql> select managerid, min(salary) from emp group by managerid;
++-----------+-------------+
+| managerid | min(salary) |
++-----------+-------------+
+|      NULL |       50000 |
+|       101 |       25000 |
+|       102 |       40000 |
+|       103 |       25000 |
++-----------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select managerid, min(salary) from emp group by managerid where managerid=NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where managerid=NULL' at line 1
+mysql> select from managerid where managerid=NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from managerid where managerid=NULL' at line 1
+mysql> select managerid, min(salary) from emp group by managerid where managerid is not NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where managerid is not NULL' at line 1
+mysql> select managerid, min(salary) from emp where managerid is not NULL group by managerid;
++-----------+-------------+
+| managerid | min(salary) |
++-----------+-------------+
+|       101 |       25000 |
+|       102 |       40000 |
+|       103 |       25000 |
++-----------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select managerid, min(salary) from emp where managerid is not NULL group by managerid having salary>30000;
+ERROR 1054 (42S22): Unknown column 'salary' in 'having clause'
+mysql> select managerid, min(salary) from emp where managerid is not NULL group by managerid having min(salary)>30000;
++-----------+-------------+
+| managerid | min(salary) |
++-----------+-------------+
+|       102 |       40000 |
++-----------+-------------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> select managerid, min(salary) from emp where managerid is not NULL group by managerid having min(salary)<30000;
++-----------+-------------+
+| managerid | min(salary) |
++-----------+-------------+
+|       101 |       25000 |
+|       103 |       25000 |
++-----------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select managerid, min(salary) from emp where managerid is not NULL group by managerid;
++-----------+-------------+
+| managerid | min(salary) |
++-----------+-------------+
+|       101 |       25000 |
+|       102 |       40000 |
+|       103 |       25000 |
++-----------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select managerid, min(salary) from emp where managerid is not NULL group by managerid order by desc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'desc' at line 1
+mysql> select managerid, min(salary) from emp where managerid is not NULL group by managerid order by 'desc';
++-----------+-------------+
+| managerid | min(salary) |
++-----------+-------------+
+|       101 |       25000 |
+|       102 |       40000 |
+|       103 |       25000 |
++-----------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from min(salary) order by desc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'min(salary) order by desc' at line 1
+mysql> select managerid, min(salary) from emp where managerid is not NULL group by managerid order by min(salary) desc;
++-----------+-------------+
+| managerid | min(salary) |
++-----------+-------------+
+|       102 |       40000 |
+|       101 |       25000 |
+|       103 |       25000 |
++-----------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-------+-------+--------+------------+-----------+-----------+--------+
+| empid | ename | salary | hiredate   | address   | managerid | deptid |
++-------+-------+--------+------------+-----------+-----------+--------+
+|   101 | King  |  50000 | 2020-09-09 | Delhi     |      NULL |     10 |
+|   102 | John  |  45000 | 2020-10-09 | Pune      |       101 |     10 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai    |       102 |     20 |
+|   104 | Nidhi |  25000 | 2021-10-09 | Mumbai    |       101 |     40 |
+|   105 | Mohit |  25000 | 2021-09-09 | Pune      |       103 |     40 |
+|   106 | Venky |  45000 | 2023-04-07 | Chennai   |       102 |     30 |
+|   107 | Ojas  |  48000 | 2023-05-11 | Ratnagiri |       103 |   NULL |
++-------+-------+--------+------------+-----------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select deptid, address, count(deptid) from emp group by deptid, avg(salary);
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select deptid, address, count(deptid) from emp group by deptid;
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'mohitnraj.emp.address' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select deptid, address, , avg(salary);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', avg(salary)' at line 1
+mysql> select deptid, count(deptid) from emp group by deptid;
++--------+---------------+
+| deptid | count(deptid) |
++--------+---------------+
+|   NULL |             0 |
+|     10 |             2 |
+|     20 |             1 |
+|     30 |             1 |
+|     40 |             2 |
++--------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> select deptid, address, count(deptid) from emp group by deptid;
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'mohitnraj.emp.address' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select deptid, address, count(deptid) from emp group by deptid;
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'mohitnraj.emp.address' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select deptid, count(deptid) from emp group by deptid;
++--------+---------------+
+| deptid | count(deptid) |
++--------+---------------+
+|   NULL |             0 |
+|     10 |             2 |
+|     20 |             1 |
+|     30 |             1 |
+|     40 |             2 |
++--------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> select deptid, address, count(deptid);
+ERROR 1054 (42S22): Unknown column 'deptid' in 'field list'
+mysql> select deptid, address, count(deptid) from emp;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'mohitnraj.emp.deptid'; this is incompatible with sql_mode=only_full_group_by
+mysql> select deptid, address, count(deptid) from emp group by deptid;
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'mohitnraj.emp.address' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select deptid, address, count(deptid),avg(salary) from emp group by deptid ;
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'mohitnraj.emp.address' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select deptid, address, count(deptid),avg(salary) from emp group by deptid,address ;
++--------+-----------+---------------+-------------+
+| deptid | address   | count(deptid) | avg(salary) |
++--------+-----------+---------------+-------------+
+|     10 | Delhi     |             1 |  50000.0000 |
+|     10 | Pune      |             1 |  45000.0000 |
+|     20 | Mumbai    |             1 |  40000.0000 |
+|     40 | Mumbai    |             1 |  25000.0000 |
+|     40 | Pune      |             1 |  25000.0000 |
+|     30 | Chennai   |             1 |  45000.0000 |
+|   NULL | Ratnagiri |             0 |  48000.0000 |
++--------+-----------+---------------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> select deptid, count(address), ,avg(salary) from emp group by deptid ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',avg(salary) from emp group by deptid' at line 1
+mysql> select deptid, count(address), avg(salary) from emp group by deptid ;
++--------+----------------+-------------+
+| deptid | count(address) | avg(salary) |
++--------+----------------+-------------+
+|   NULL |              1 |  48000.0000 |
+|     10 |              2 |  47500.0000 |
+|     20 |              1 |  40000.0000 |
+|     30 |              1 |  45000.0000 |
+|     40 |              2 |  25000.0000 |
++--------+----------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select deptid, address, count(deptid),avg(salary) from emp group by deptid ;
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'mohitnraj.emp.address' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select deptid, address, count(deptid),avg(salary) from emp group by deptid ;
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'mohitnraj.emp.address' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql>
+mysql> desc dept;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| deptid      | int         | NO   | PRI | NULL    |       |
+| dname       | varchar(20) | YES  |     | NULL    |       |
+| location_id | int         | YES  | MUL | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc location
+    -> ;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| loc_id   | int         | NO   | PRI | NULL    |       |
+| loc_name | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from  location;
++--------+----------+
+| loc_id | loc_name |
++--------+----------+
+|      1 | delhi    |
+|      2 | pune     |
+|      3 | mumbai   |
+|      4 | vizag    |
+|      5 | bbsr     |
++--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from  dept;
++--------+---------------+-------------+
+| deptid | dname         | location_id |
++--------+---------------+-------------+
+|     10 | HR            |           2 |
+|     20 | Accounts      |           5 |
+|     30 | Insurance     |           2 |
+|     40 | IT operations |           5 |
+|     50 | Sales         |        NULL |
++--------+---------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from  emp;
++-------+-------+--------+------------+-----------+-----------+--------+
+| empid | ename | salary | hiredate   | address   | managerid | deptid |
++-------+-------+--------+------------+-----------+-----------+--------+
+|   101 | King  |  50000 | 2020-09-09 | Delhi     |      NULL |     10 |
+|   102 | John  |  45000 | 2020-10-09 | Pune      |       101 |     10 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai    |       102 |     20 |
+|   104 | Nidhi |  25000 | 2021-10-09 | Mumbai    |       101 |     40 |
+|   105 | Mohit |  25000 | 2021-09-09 | Pune      |       103 |     40 |
+|   106 | Venky |  45000 | 2023-04-07 | Chennai   |       102 |     30 |
+|   107 | Ojas  |  48000 | 2023-05-11 | Ratnagiri |       103 |   NULL |
++-------+-------+--------+------------+-----------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql>  select dname,loc_name,count(empid),round(avg(salary))
+    -> from emp,dept,location
+    -> where emp.deptid=dept.deptid and location.loc_id=dept.location_id group by dname,loc_name;
++---------------+----------+--------------+--------------------+
+| dname         | loc_name | count(empid) | round(avg(salary)) |
++---------------+----------+--------------+--------------------+
+| HR            | pune     |            2 |              47500 |
+| Accounts      | bbsr     |            1 |              40000 |
+| IT operations | bbsr     |            2 |              25000 |
+| Insurance     | pune     |            1 |              45000 |
++---------------+----------+--------------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> select dname as Name,loc_name as Location, count(empid) as Number of Employees, round(avg(salary)) as Salary from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'of Employees, round(avg(salary)) as Salary from emp' at line 1
+mysql> select dname as Name,loc_name as Location, count(empid) as Number of Employees, round(avg(salary)) as Salary from emp
+    ->  select dname,loc_name,count(empid),round(avg(salary))
+    ->     -> from emp,dept,location
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'of Employees, round(avg(salary)) as Salary from emp
+ select dname,loc_name,count' at line 1
+mysql> select dname as Name,loc_name as Location, count(empid) as Number of Employees, round(avg(salary)) as Salary from emp
+    -> from emp,dept,location
+    -> where emp.deptid=dept.deptid and location.loc_id=dept.location_id group by dname,loc_name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'of Employees, round(avg(salary)) as Salary from emp
+from emp,dept,location
+where' at line 1
+mysql> select dname as Name,loc_name as 'Location', count(empid) as 'Number of Employees', round(avg(salary)) as 'Salary' from emp
+    -> from emp,dept,location
+    -> where emp.deptid=dept.deptid and location.loc_id=dept.location_id group by dname,loc_name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from emp,dept,location
+where emp.deptid=dept.deptid and location.loc_id=dept.loc' at line 2
+mysql> select dname as 'Name',loc_name as 'Location', count(empid) as 'Number of Employees', round(avg(salary)) as 'Salary' from emp
+    -> from emp,dept,location
+    -> where emp.deptid=dept.deptid and location.loc_id=dept.location_id group by dname,loc_name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from emp,dept,location
+where emp.deptid=dept.deptid and location.loc_id=dept.loc' at line 2
+mysql> select dname as 'Name',loc_name as 'Location', count(empid) as 'Number of Employees', round(avg(salary)) as 'Salary' from emp
+    -> ;
+ERROR 1054 (42S22): Unknown column 'dname' in 'field list'
+mysql> select dname as Name,loc_name as Locations,count(empid) as Number of people,round(avg(salary)) as Salary
+    -> from emp,dept,location
+    -> where emp.deptid=dept.deptid and location.loc_id=dept.location_id group by dname,loc_name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'of people,round(avg(salary)) as Salary
+from emp,dept,location
+where emp.deptid=' at line 1
+mysql> select dname as Name,loc_name as Locations,count(empid) as 'Number of people',round(avg(salary)) as Salary
+    -> from emp,dept,location
+    -> where emp.deptid=dept.deptid and location.loc_id=dept.location_id group by dname,loc_name;
++---------------+-----------+------------------+--------+
+| Name          | Locations | Number of people | Salary |
++---------------+-----------+------------------+--------+
+| HR            | pune      |                2 |  47500 |
+| Accounts      | bbsr      |                1 |  40000 |
+| IT operations | bbsr      |                2 |  25000 |
+| Insurance     | pune      |                1 |  45000 |
++---------------+-----------+------------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-------+-------+--------+------------+-----------+-----------+--------+
+| empid | ename | salary | hiredate   | address   | managerid | deptid |
++-------+-------+--------+------------+-----------+-----------+--------+
+|   101 | King  |  50000 | 2020-09-09 | Delhi     |      NULL |     10 |
+|   102 | John  |  45000 | 2020-10-09 | Pune      |       101 |     10 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai    |       102 |     20 |
+|   104 | Nidhi |  25000 | 2021-10-09 | Mumbai    |       101 |     40 |
+|   105 | Mohit |  25000 | 2021-09-09 | Pune      |       103 |     40 |
+|   106 | Venky |  45000 | 2023-04-07 | Chennai   |       102 |     30 |
+|   107 | Ojas  |  48000 | 2023-05-11 | Ratnagiri |       103 |   NULL |
++-------+-------+--------+------------+-----------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select * from emp where hiredate in(2021-09-09, 2020-09-09);
+Empty set, 2 warnings (0.00 sec)
+
+mysql> select hiredate from emp
+    -> where 2021-09-09;
++------------+
+| hiredate   |
++------------+
+| 2020-09-09 |
+| 2020-10-09 |
+| 2021-10-09 |
+| 2021-10-09 |
+| 2021-09-09 |
+| 2023-04-07 |
+| 2023-05-11 |
++------------+
+7 rows in set (0.00 sec)
+
+mysql> update emp
+    -> set hiredate=2022-09-09
+    -> where empid=105;
+ERROR 1292 (22007): Incorrect date value: '2004' for column 'hiredate' at row 1
+mysql> update emp
+    -> set hiredate='2022-09-09'
+    -> where empid=105;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from emp;
++-------+-------+--------+------------+-----------+-----------+--------+
+| empid | ename | salary | hiredate   | address   | managerid | deptid |
++-------+-------+--------+------------+-----------+-----------+--------+
+|   101 | King  |  50000 | 2020-09-09 | Delhi     |      NULL |     10 |
+|   102 | John  |  45000 | 2020-10-09 | Pune      |       101 |     10 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai    |       102 |     20 |
+|   104 | Nidhi |  25000 | 2021-10-09 | Mumbai    |       101 |     40 |
+|   105 | Mohit |  25000 | 2022-09-09 | Pune      |       103 |     40 |
+|   106 | Venky |  45000 | 2023-04-07 | Chennai   |       102 |     30 |
+|   107 | Ojas  |  48000 | 2023-05-11 | Ratnagiri |       103 |   NULL |
++-------+-------+--------+------------+-----------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> update emp
+    -> set ename='Ishwari'
+    -> where empid=104;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from emp;
++-------+---------+--------+------------+-----------+-----------+--------+
+| empid | ename   | salary | hiredate   | address   | managerid | deptid |
++-------+---------+--------+------------+-----------+-----------+--------+
+|   101 | King    |  50000 | 2020-09-09 | Delhi     |      NULL |     10 |
+|   102 | John    |  45000 | 2020-10-09 | Pune      |       101 |     10 |
+|   103 | Jay     |  40000 | 2021-10-09 | Mumbai    |       102 |     20 |
+|   104 | Ishwari |  25000 | 2021-10-09 | Mumbai    |       101 |     40 |
+|   105 | Mohit   |  25000 | 2022-09-09 | Pune      |       103 |     40 |
+|   106 | Venky   |  45000 | 2023-04-07 | Chennai   |       102 |     30 |
+|   107 | Ojas    |  48000 | 2023-05-11 | Ratnagiri |       103 |   NULL |
++-------+---------+--------+------------+-----------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select count(ename) from emp;
++--------------+
+| count(ename) |
++--------------+
+|            7 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select count(hiredate)
+    -> from emp
+    -> group by hiredate
+    -> ;
++-----------------+
+| count(hiredate) |
++-----------------+
+|               1 |
+|               1 |
+|               2 |
+|               1 |
+|               1 |
+|               1 |
++-----------------+
+6 rows in set (0.00 sec)
+
+mysql> select count(hiredate)
+    -> group by hiredate

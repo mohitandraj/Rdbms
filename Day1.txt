@@ -1,0 +1,721 @@
+Microsoft Windows [Version 10.0.18362.1316]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\Users\duasp>"C:\Program Files\MySQL\MySQL Server 9.0\bin\mysql.exe" -u root -p --port 3307
+Enter password: *****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 28
+Server version: 9.0.1 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database mohitnraj
+    -> create database mohitnraj;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'create database mohitnraj' at line 2
+mysql> create database mohitnraj;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use mohitnraj;
+Database changed
+mysql> create table emp(empid integer, ename varchar(20), salary integer, hiredate date, address varchar(10), managerid integer);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table dept (deptid integer, dname varchar(20));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc emp;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| empid     | int         | YES  |     | NULL    |       |
+| ename     | varchar(20) | YES  |     | NULL    |       |
+| salary    | int         | YES  |     | NULL    |       |
+| hiredate  | date        | YES  |     | NULL    |       |
+| address   | varchar(10) | YES  |     | NULL    |       |
+| managerid | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> desc dept;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| deptid | int         | YES  |     | NULL    |       |
+| dname  | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> alter table emp add constraint primary key (empid);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| empid     | int         | NO   | PRI | NULL    |       |
+| ename     | varchar(20) | YES  |     | NULL    |       |
+| salary    | int         | YES  |     | NULL    |       |
+| hiredate  | date        | YES  |     | NULL    |       |
+| address   | varchar(10) | YES  |     | NULL    |       |
+| managerid | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> desc dept;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| deptid | int         | YES  |     | NULL    |       |
+| dname  | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> alter table emp add(deptid integer);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| empid     | int         | NO   | PRI | NULL    |       |
+| ename     | varchar(20) | YES  |     | NULL    |       |
+| salary    | int         | YES  |     | NULL    |       |
+| hiredate  | date        | YES  |     | NULL    |       |
+| address   | varchar(10) | YES  |     | NULL    |       |
+| managerid | int         | YES  |     | NULL    |       |
+| deptid    | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table dept add constraint primary key(deptid);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc dept;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| deptid | int         | NO   | PRI | NULL    |       |
+| dname  | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> alter table emp add constraint fkemp foreign key(deptid) references dept(deptid);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| empid     | int         | NO   | PRI | NULL    |       |
+| ename     | varchar(20) | YES  |     | NULL    |       |
+| salary    | int         | YES  |     | NULL    |       |
+| hiredate  | date        | YES  |     | NULL    |       |
+| address   | varchar(10) | YES  |     | NULL    |       |
+| managerid | int         | YES  |     | NULL    |       |
+| deptid    | int         | YES  | MUL | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> insert into dept values(10,'HR');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into dept values(20,'Accounts');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into dept values(30,'Insurance');
+Query OK, 1 row affected (0.01 sec)
+
+mysql>  insert into dept values(40,'IT operations');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from dept;
++--------+---------------+
+| deptid | dname         |
++--------+---------------+
+|     10 | HR            |
+|     20 | Accounts      |
+|     30 | Insurance     |
+|     40 | IT operations |
++--------+---------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into emp values(101, 'King', 50000, '2020-09-09', 'Delhi', NULL, 10);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into emp values(102, 'John', 45000, '2020-10-09', 'Pune', 101, 10);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into emp values(103, 'Jay', 40000, '2021-10-09', 'Mumbai', 102, 20);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into emp values(103, 'Jay', 40000, '2021-10-09', 'Mumbai', 102, 30);
+ERROR 1062 (23000): Duplicate entry '103' for key 'emp.PRIMARY'
+mysql>  insert into emp values(104, 'Nidhi', 25000, '2021-10-09', 'Mumbai',101, 40);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from emp;
++-------+-------+--------+------------+---------+-----------+--------+
+| empid | ename | salary | hiredate   | address | managerid | deptid |
++-------+-------+--------+------------+---------+-----------+--------+
+|   101 | King  |  50000 | 2020-09-09 | Delhi   |      NULL |     10 |
+|   102 | John  |  45000 | 2020-10-09 | Pune    |       101 |     10 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai  |       102 |     20 |
+|   104 | Nidhi |  25000 | 2021-10-09 | Mumbai  |       101 |     40 |
++-------+-------+--------+------------+---------+-----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> delete from emp where empid=104;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from emp;
++-------+-------+--------+------------+---------+-----------+--------+
+| empid | ename | salary | hiredate   | address | managerid | deptid |
++-------+-------+--------+------------+---------+-----------+--------+
+|   101 | King  |  50000 | 2020-09-09 | Delhi   |      NULL |     10 |
+|   102 | John  |  45000 | 2020-10-09 | Pune    |       101 |     10 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai  |       102 |     20 |
++-------+-------+--------+------------+---------+-----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from emp;
++-------+-------+--------+------------+---------+-----------+--------+
+| empid | ename | salary | hiredate   | address | managerid | deptid |
++-------+-------+--------+------------+---------+-----------+--------+
+|   101 | King  |  50000 | 2020-09-09 | Delhi   |      NULL |     10 |
+|   102 | John  |  45000 | 2020-10-09 | Pune    |       101 |     10 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai  |       102 |     20 |
++-------+-------+--------+------------+---------+-----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> insert into emp values(104, 'Nidhi', 25000, '2021-10-09', 'Mumbai',101, 40);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from emp;
++-------+-------+--------+------------+---------+-----------+--------+
+| empid | ename | salary | hiredate   | address | managerid | deptid |
++-------+-------+--------+------------+---------+-----------+--------+
+|   101 | King  |  50000 | 2020-09-09 | Delhi   |      NULL |     10 |
+|   102 | John  |  45000 | 2020-10-09 | Pune    |       101 |     10 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai  |       102 |     20 |
+|   104 | Nidhi |  25000 | 2021-10-09 | Mumbai  |       101 |     40 |
++-------+-------+--------+------------+---------+-----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from emp where empid=104;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from emp;
++-------+-------+--------+------------+---------+-----------+--------+
+| empid | ename | salary | hiredate   | address | managerid | deptid |
++-------+-------+--------+------------+---------+-----------+--------+
+|   101 | King  |  50000 | 2020-09-09 | Delhi   |      NULL |     10 |
+|   102 | John  |  45000 | 2020-10-09 | Pune    |       101 |     10 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai  |       102 |     20 |
++-------+-------+--------+------------+---------+-----------+--------+
+3 rows in set (0.00 sec)
+
+mysql>  insert into emp values(104, 'Nidhi', 25000, '2021-10-09', 'Mumbai',101, 40);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from dept;
++--------+---------------+
+| deptid | dname         |
++--------+---------------+
+|     10 | HR            |
+|     20 | Accounts      |
+|     30 | Insurance     |
+|     40 | IT operations |
++--------+---------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-------+-------+--------+------------+---------+-----------+--------+
+| empid | ename | salary | hiredate   | address | managerid | deptid |
++-------+-------+--------+------------+---------+-----------+--------+
+|   101 | King  |  50000 | 2020-09-09 | Delhi   |      NULL |     10 |
+|   102 | John  |  45000 | 2020-10-09 | Pune    |       101 |     10 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai  |       102 |     20 |
+|   104 | Nidhi |  25000 | 2021-10-09 | Mumbai  |       101 |     40 |
++-------+-------+--------+------------+---------+-----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> update emp set salary = 100000;
+Query OK, 4 rows affected (0.01 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> select * from emp;
++-------+-------+--------+------------+---------+-----------+--------+
+| empid | ename | salary | hiredate   | address | managerid | deptid |
++-------+-------+--------+------------+---------+-----------+--------+
+|   101 | King  | 100000 | 2020-09-09 | Delhi   |      NULL |     10 |
+|   102 | John  | 100000 | 2020-10-09 | Pune    |       101 |     10 |
+|   103 | Jay   | 100000 | 2021-10-09 | Mumbai  |       102 |     20 |
+|   104 | Nidhi | 100000 | 2021-10-09 | Mumbai  |       101 |     40 |
++-------+-------+--------+------------+---------+-----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from emp;
++-------+-------+--------+------------+---------+-----------+--------+
+| empid | ename | salary | hiredate   | address | managerid | deptid |
++-------+-------+--------+------------+---------+-----------+--------+
+|   101 | King  | 100000 | 2020-09-09 | Delhi   |      NULL |     10 |
+|   102 | John  | 100000 | 2020-10-09 | Pune    |       101 |     10 |
+|   103 | Jay   | 100000 | 2021-10-09 | Mumbai  |       102 |     20 |
+|   104 | Nidhi | 100000 | 2021-10-09 | Mumbai  |       101 |     40 |
++-------+-------+--------+------------+---------+-----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> update emp
+    -> set salary
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+mysql> update emp
+    -> set salary=50000
+    -> where empid=101;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp
+    -> set salary=45000
+    -> where empid=102;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp
+    -> set salary=40000
+    -> where empid=103;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp
+    -> set salary=25000
+    -> where empid=104;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from emp;
++-------+-------+--------+------------+---------+-----------+--------+
+| empid | ename | salary | hiredate   | address | managerid | deptid |
++-------+-------+--------+------------+---------+-----------+--------+
+|   101 | King  |  50000 | 2020-09-09 | Delhi   |      NULL |     10 |
+|   102 | John  |  45000 | 2020-10-09 | Pune    |       101 |     10 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai  |       102 |     20 |
+|   104 | Nidhi |  25000 | 2021-10-09 | Mumbai  |       101 |     40 |
++-------+-------+--------+------------+---------+-----------+--------+
+4 rows in set (0.00 sec)
+
+mysql>  select * from emp where salary=25000;
++-------+-------+--------+------------+---------+-----------+--------+
+| empid | ename | salary | hiredate   | address | managerid | deptid |
++-------+-------+--------+------------+---------+-----------+--------+
+|   104 | Nidhi |  25000 | 2021-10-09 | Mumbai  |       101 |     40 |
++-------+-------+--------+------------+---------+-----------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp where salary>=30000 and salary <= 50000;
++-------+-------+--------+------------+---------+-----------+--------+
+| empid | ename | salary | hiredate   | address | managerid | deptid |
++-------+-------+--------+------------+---------+-----------+--------+
+|   101 | King  |  50000 | 2020-09-09 | Delhi   |      NULL |     10 |
+|   102 | John  |  45000 | 2020-10-09 | Pune    |       101 |     10 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai  |       102 |     20 |
++-------+-------+--------+------------+---------+-----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from emp where salary between 30000 and 50000;
++-------+-------+--------+------------+---------+-----------+--------+
+| empid | ename | salary | hiredate   | address | managerid | deptid |
++-------+-------+--------+------------+---------+-----------+--------+
+|   101 | King  |  50000 | 2020-09-09 | Delhi   |      NULL |     10 |
+|   102 | John  |  45000 | 2020-10-09 | Pune    |       101 |     10 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai  |       102 |     20 |
++-------+-------+--------+------------+---------+-----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from emp where salary = 25000 or salary = 40000;
++-------+-------+--------+------------+---------+-----------+--------+
+| empid | ename | salary | hiredate   | address | managerid | deptid |
++-------+-------+--------+------------+---------+-----------+--------+
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai  |       102 |     20 |
+|   104 | Nidhi |  25000 | 2021-10-09 | Mumbai  |       101 |     40 |
++-------+-------+--------+------------+---------+-----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from emp where salary in (25000,40000);
++-------+-------+--------+------------+---------+-----------+--------+
+| empid | ename | salary | hiredate   | address | managerid | deptid |
++-------+-------+--------+------------+---------+-----------+--------+
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai  |       102 |     20 |
+|   104 | Nidhi |  25000 | 2021-10-09 | Mumbai  |       101 |     40 |
++-------+-------+--------+------------+---------+-----------+--------+
+2 rows in set (0.00 sec)
+
+mysql>  select * from emp where managerid is NULL;
++-------+-------+--------+------------+---------+-----------+--------+
+| empid | ename | salary | hiredate   | address | managerid | deptid |
++-------+-------+--------+------------+---------+-----------+--------+
+|   101 | King  |  50000 | 2020-09-09 | Delhi   |      NULL |     10 |
++-------+-------+--------+------------+---------+-----------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp where managerid is not NULL;
++-------+-------+--------+------------+---------+-----------+--------+
+| empid | ename | salary | hiredate   | address | managerid | deptid |
++-------+-------+--------+------------+---------+-----------+--------+
+|   102 | John  |  45000 | 2020-10-09 | Pune    |       101 |     10 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai  |       102 |     20 |
+|   104 | Nidhi |  25000 | 2021-10-09 | Mumbai  |       101 |     40 |
++-------+-------+--------+------------+---------+-----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select ename, salary,coalesce(managerid,'no manager') from emp;
++-------+--------+----------------------------------+
+| ename | salary | coalesce(managerid,'no manager') |
++-------+--------+----------------------------------+
+| King  |  50000 | no manager                       |
+| John  |  45000 | 101                              |
+| Jay   |  40000 | 102                              |
+| Nidhi |  25000 | 101                              |
++-------+--------+----------------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select ename, salary, coalesce(managerid, 0) from emp;
++-------+--------+------------------------+
+| ename | salary | coalesce(managerid, 0) |
++-------+--------+------------------------+
+| King  |  50000 |                      0 |
+| John  |  45000 |                    101 |
+| Jay   |  40000 |                    102 |
+| Nidhi |  25000 |                    101 |
++-------+--------+------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from emp where ename like '%a%'
+    -> ;
++-------+-------+--------+------------+---------+-----------+--------+
+| empid | ename | salary | hiredate   | address | managerid | deptid |
++-------+-------+--------+------------+---------+-----------+--------+
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai  |       102 |     20 |
++-------+-------+--------+------------+---------+-----------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp where ename like '_a%';
++-------+-------+--------+------------+---------+-----------+--------+
+| empid | ename | salary | hiredate   | address | managerid | deptid |
++-------+-------+--------+------------+---------+-----------+--------+
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai  |       102 |     20 |
++-------+-------+--------+------------+---------+-----------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp where managerid is not NULL order by salary;
++-------+-------+--------+------------+---------+-----------+--------+
+| empid | ename | salary | hiredate   | address | managerid | deptid |
++-------+-------+--------+------------+---------+-----------+--------+
+|   104 | Nidhi |  25000 | 2021-10-09 | Mumbai  |       101 |     40 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai  |       102 |     20 |
+|   102 | John  |  45000 | 2020-10-09 | Pune    |       101 |     10 |
++-------+-------+--------+------------+---------+-----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from emp where managerid is not NULL order by salary desc;
++-------+-------+--------+------------+---------+-----------+--------+
+| empid | ename | salary | hiredate   | address | managerid | deptid |
++-------+-------+--------+------------+---------+-----------+--------+
+|   102 | John  |  45000 | 2020-10-09 | Pune    |       101 |     10 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai  |       102 |     20 |
+|   104 | Nidhi |  25000 | 2021-10-09 | Mumbai  |       101 |     40 |
++-------+-------+--------+------------+---------+-----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select ename as "Employee Name", salary as "Employee Salary",coalesce(managerid,0) as managerid from emp;
++---------------+-----------------+-----------+
+| Employee Name | Employee Salary | managerid |
++---------------+-----------------+-----------+
+| King          |           50000 |         0 |
+| John          |           45000 |       101 |
+| Jay           |           40000 |       102 |
+| Nidhi         |           25000 |       101 |
++---------------+-----------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select ename, salary from emp where salary>30000;
++-------+--------+
+| ename | salary |
++-------+--------+
+| King  |  50000 |
+| John  |  45000 |
+| Jay   |  40000 |
++-------+--------+
+3 rows in set (0.00 sec)
+
+mysql> elect ename, deptid from emp where empid=103;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'elect ename, deptid from emp where empid=103' at line 1
+mysql> select ename, deptid from emp where empid=103;
++-------+--------+
+| ename | deptid |
++-------+--------+
+| Jay   |     20 |
++-------+--------+
+1 row in set (0.00 sec)
+
+mysql> select ename, salary from emp where salary not between 20000 and 40000;
++-------+--------+
+| ename | salary |
++-------+--------+
+| King  |  50000 |
+| John  |  45000 |
++-------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select empid, ename, hiredate from emp where hiredate between '2020-01-01' and '2020-12-01';
++-------+-------+------------+
+| empid | ename | hiredate   |
++-------+-------+------------+
+|   101 | King  | 2020-09-09 |
+|   102 | John  | 2020-10-09 |
++-------+-------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select empid, ename, hiredate from emp where hiredate between '2020-01-01' and '2020-12-01' order by hiredate;
++-------+-------+------------+
+| empid | ename | hiredate   |
++-------+-------+------------+
+|   101 | King  | 2020-09-09 |
+|   102 | John  | 2020-10-09 |
++-------+-------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select ename, deptid from emp where deptid in (10,40) order by ename;
++-------+--------+
+| ename | deptid |
++-------+--------+
+| John  |     10 |
+| King  |     10 |
+| Nidhi |     40 |
++-------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select ename as 'Employee', salary as 'Monthly Salary' from emp where salary between 10000 and 40000 and deptid in (10,40);
++----------+----------------+
+| Employee | Monthly Salary |
++----------+----------------+
+| Nidhi    |          25000 |
++----------+----------------+
+1 row in set (0.00 sec)
+
+mysql> select ename, hiredate from emp where substr(hiredate,1,4) = 2021;
++-------+------------+
+| ename | hiredate   |
++-------+------------+
+| Jay   | 2021-10-09 |
+| Nidhi | 2021-10-09 |
++-------+------------+
+2 rows in set (0.00 sec)
+
+mysql>  select ename, empid from emp where managerid is NULL;
++-------+-------+
+| ename | empid |
++-------+-------+
+| King  |   101 |
++-------+-------+
+1 row in set (0.00 sec)
+
+mysql> select ename, salary,address from emp order by salary desc, address desc;
++-------+--------+---------+
+| ename | salary | address |
++-------+--------+---------+
+| King  |  50000 | Delhi   |
+| John  |  45000 | Pune    |
+| Jay   |  40000 | Mumbai  |
+| Nidhi |  25000 | Mumbai  |
++-------+--------+---------+
+4 rows in set (0.00 sec)
+
+mysql> insert into emp values (105,'Mohit', 25000, '2021-09-09', 'Pune', 103, 40);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++-------+-------+--------+------------+---------+-----------+--------+
+| empid | ename | salary | hiredate   | address | managerid | deptid |
++-------+-------+--------+------------+---------+-----------+--------+
+|   101 | King  |  50000 | 2020-09-09 | Delhi   |      NULL |     10 |
+|   102 | John  |  45000 | 2020-10-09 | Pune    |       101 |     10 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai  |       102 |     20 |
+|   104 | Nidhi |  25000 | 2021-10-09 | Mumbai  |       101 |     40 |
+|   105 | Mohit |  25000 | 2021-09-09 | Pune    |       103 |     40 |
++-------+-------+--------+------------+---------+-----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select ename, salary,address from emp order by salary desc, address desc;
++-------+--------+---------+
+| ename | salary | address |
++-------+--------+---------+
+| King  |  50000 | Delhi   |
+| John  |  45000 | Pune    |
+| Jay   |  40000 | Mumbai  |
+| Mohit |  25000 | Pune    |
+| Nidhi |  25000 | Mumbai  |
++-------+--------+---------+
+5 rows in set (0.00 sec)
+
+mysql>  select ename from emp where ename like '__n%';
++-------+
+| ename |
++-------+
+| King  |
++-------+
+1 row in set (0.00 sec)
+
+mysql>  select ename from emp where ename like '__m%';
+Empty set (0.00 sec)
+
+mysql>  select ename from emp where ename like '__h%';
++-------+
+| ename |
++-------+
+| John  |
+| Mohit |
++-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into emp values(106,'Venky',45000,'2023-04-07','Chennai',102,30);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from emp;
++-------+-------+--------+------------+---------+-----------+--------+
+| empid | ename | salary | hiredate   | address | managerid | deptid |
++-------+-------+--------+------------+---------+-----------+--------+
+|   101 | King  |  50000 | 2020-09-09 | Delhi   |      NULL |     10 |
+|   102 | John  |  45000 | 2020-10-09 | Pune    |       101 |     10 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai  |       102 |     20 |
+|   104 | Nidhi |  25000 | 2021-10-09 | Mumbai  |       101 |     40 |
+|   105 | Mohit |  25000 | 2021-09-09 | Pune    |       103 |     40 |
+|   106 | Venky |  45000 | 2023-04-07 | Chennai |       102 |     30 |
++-------+-------+--------+------------+---------+-----------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select ename from emp where ename like '%o%i%' or '%h%i%';
++-------+
+| ename |
++-------+
+| Mohit |
++-------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> select ename from emp where ename like '%o%i%' or ename like '%h%i%';
++-------+
+| ename |
++-------+
+| Nidhi |
+| Mohit |
++-------+
+2 rows in set (0.00 sec)
+
+mysql> select ename, address, salary from emp where address = 'Mumbai' or 'Pune' and salary not in (25000,30000,50000);
++-------+---------+--------+
+| ename | address | salary |
++-------+---------+--------+
+| Jay   | Mumbai  |  40000 |
+| Nidhi | Mumbai  |  25000 |
++-------+---------+--------+
+2 rows in set, 1 warning (0.00 sec)
+
+mysql> select ename, address, salary from emp where address in ('Mumbai', 'Pune') and salary not in (25000,30000,50000);
++-------+---------+--------+
+| ename | address | salary |
++-------+---------+--------+
+| John  | Pune    |  45000 |
+| Jay   | Mumbai  |  40000 |
++-------+---------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select ename,salary,address from emp where deptid=30;
++-------+--------+---------+
+| ename | salary | address |
++-------+--------+---------+
+| Venky |  45000 | Chennai |
++-------+--------+---------+
+1 row in set (0.00 sec)
+
+mysql> select ename,salary,address from emp where deptid=40;
++-------+--------+---------+
+| ename | salary | address |
++-------+--------+---------+
+| Nidhi |  25000 | Mumbai  |
+| Mohit |  25000 | Pune    |
++-------+--------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select current_date() as Date;
++------------+
+| Date       |
++------------+
+| 2024-10-11 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select empid,ename,salary, (salary*15/100+salary) as new_salary from emp;
++-------+-------+--------+------------+
+| empid | ename | salary | new_salary |
++-------+-------+--------+------------+
+|   101 | King  |  50000 | 57500.0000 |
+|   102 | John  |  45000 | 51750.0000 |
+|   103 | Jay   |  40000 | 46000.0000 |
+|   104 | Nidhi |  25000 | 28750.0000 |
+|   105 | Mohit |  25000 | 28750.0000 |
+|   106 | Venky |  45000 | 51750.0000 |
++-------+-------+--------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select empid,ename,salary,ceil(salary*15/100+salary) as new_salary from emp;
++-------+-------+--------+------------+
+| empid | ename | salary | new_salary |
++-------+-------+--------+------------+
+|   101 | King  |  50000 |      57500 |
+|   102 | John  |  45000 |      51750 |
+|   103 | Jay   |  40000 |      46000 |
+|   104 | Nidhi |  25000 |      28750 |
+|   105 | Mohit |  25000 |      28750 |
+|   106 | Venky |  45000 |      51750 |
++-------+-------+--------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select empid,ename,salary,ceil(salary*15/100+salary) as new_salary, ceil(salary*15/100) as Increase from emp;
++-------+-------+--------+------------+----------+
+| empid | ename | salary | new_salary | Increase |
++-------+-------+--------+------------+----------+
+|   101 | King  |  50000 |      57500 |     7500 |
+|   102 | John  |  45000 |      51750 |     6750 |
+|   103 | Jay   |  40000 |      46000 |     6000 |
+|   104 | Nidhi |  25000 |      28750 |     3750 |
+|   105 | Mohit |  25000 |      28750 |     3750 |
+|   106 | Venky |  45000 |      51750 |     6750 |
++-------+-------+--------+------------+----------+
+6 rows in set (0.00 sec)
+
+mysql>

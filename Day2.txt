@@ -1,0 +1,488 @@
+ select ename,dname
+    -> from emp, dept
+    -> where emp.deptid=dept.deptid;
++-------+---------------+
+| ename | dname         |
++-------+---------------+
+| King  | HR            |
+| John  | HR            |
+| Jay   | Accounts      |
+| Venky | Insurance     |
+| Nidhi | IT operations |
+| Mohit | IT operations |
++-------+---------------+
+6 rows in set (0.00 sec)
+
+mysql> select ename,dname
+    -> from emp,dept
+    -> ;
++-------+---------------+
+| ename | dname         |
++-------+---------------+
+| King  | IT operations |
+| King  | Insurance     |
+| King  | Accounts      |
+| King  | HR            |
+| John  | IT operations |
+| John  | Insurance     |
+| John  | Accounts      |
+| John  | HR            |
+| Jay   | IT operations |
+| Jay   | Insurance     |
+| Jay   | Accounts      |
+| Jay   | HR            |
+| Nidhi | IT operations |
+| Nidhi | Insurance     |
+| Nidhi | Accounts      |
+| Nidhi | HR            |
+| Mohit | IT operations |
+| Mohit | Insurance     |
+| Mohit | Accounts      |
+| Mohit | HR            |
+| Venky | IT operations |
+| Venky | Insurance     |
+| Venky | Accounts      |
+| Venky | HR            |
++-------+---------------+
+24 rows in set (0.00 sec)
+
+mysql> select ename,dname
+    -> from emp join dept
+    -> on emp.deptid=dept.deptid;
++-------+---------------+
+| ename | dname         |
++-------+---------------+
+| King  | HR            |
+| John  | HR            |
+| Jay   | Accounts      |
+| Venky | Insurance     |
+| Nidhi | IT operations |
+| Mohit | IT operations |
++-------+---------------+
+6 rows in set (0.00 sec)
+
+mysql> select ename,dname
+    -> from emp join dept
+    -> using(deptid);
++-------+---------------+
+| ename | dname         |
++-------+---------------+
+| King  | HR            |
+| John  | HR            |
+| Jay   | Accounts      |
+| Venky | Insurance     |
+| Nidhi | IT operations |
+| Mohit | IT operations |
++-------+---------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-------+-------+--------+------------+---------+-----------+--------+
+| empid | ename | salary | hiredate   | address | managerid | deptid |
++-------+-------+--------+------------+---------+-----------+--------+
+|   101 | King  |  50000 | 2020-09-09 | Delhi   |      NULL |     10 |
+|   102 | John  |  45000 | 2020-10-09 | Pune    |       101 |     10 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai  |       102 |     20 |
+|   104 | Nidhi |  25000 | 2021-10-09 | Mumbai  |       101 |     40 |
+|   105 | Mohit |  25000 | 2021-09-09 | Pune    |       103 |     40 |
+|   106 | Venky |  45000 | 2023-04-07 | Chennai |       102 |     30 |
++-------+-------+--------+------------+---------+-----------+--------+
+6 rows in set (0.00 sec)
+
+mysql> insert into emp values(107,'Ojas',48000,'2023-05-11','Ratnagiri',103,NULL);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from emp;
++-------+-------+--------+------------+-----------+-----------+--------+
+| empid | ename | salary | hiredate   | address   | managerid | deptid |
++-------+-------+--------+------------+-----------+-----------+--------+
+|   101 | King  |  50000 | 2020-09-09 | Delhi     |      NULL |     10 |
+|   102 | John  |  45000 | 2020-10-09 | Pune      |       101 |     10 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai    |       102 |     20 |
+|   104 | Nidhi |  25000 | 2021-10-09 | Mumbai    |       101 |     40 |
+|   105 | Mohit |  25000 | 2021-09-09 | Pune      |       103 |     40 |
+|   106 | Venky |  45000 | 2023-04-07 | Chennai   |       102 |     30 |
+|   107 | Ojas  |  48000 | 2023-05-11 | Ratnagiri |       103 |   NULL |
++-------+-------+--------+------------+-----------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select * from dept;
++--------+---------------+
+| deptid | dname         |
++--------+---------------+
+|     10 | HR            |
+|     20 | Accounts      |
+|     30 | Insurance     |
+|     40 | IT operations |
++--------+---------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into dept values (20,'Sales');
+ERROR 1062 (23000): Duplicate entry '20' for key 'dept.PRIMARY'
+mysql> insert into dept values (50,'Sales');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from dept;
++--------+---------------+
+| deptid | dname         |
++--------+---------------+
+|     10 | HR            |
+|     20 | Accounts      |
+|     30 | Insurance     |
+|     40 | IT operations |
+|     50 | Sales         |
++--------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> select ename, dname
+    -> from emp left outer join dept
+    -> on emp.deptid=dept.deptid;
++-------+---------------+
+| ename | dname         |
++-------+---------------+
+| King  | HR            |
+| John  | HR            |
+| Jay   | Accounts      |
+| Nidhi | IT operations |
+| Mohit | IT operations |
+| Venky | Insurance     |
+| Ojas  | NULL          |
++-------+---------------+
+7 rows in set (0.00 sec)
+
+mysql> select ename,dname
+    -> from emp right outer join dept
+    -> on emp.deptid=dept.deptid;
++-------+---------------+
+| ename | dname         |
++-------+---------------+
+| King  | HR            |
+| John  | HR            |
+| Jay   | Accounts      |
+| Venky | Insurance     |
+| Nidhi | IT operations |
+| Mohit | IT operations |
+| NULL  | Sales         |
++-------+---------------+
+7 rows in set (0.00 sec)
+
+mysql> select e.ename "Employee Name", m.ename"Manager Name"
+    -> from emp e, emp m
+    -> where e.managerid=m.empid;
++---------------+--------------+
+| Employee Name | Manager Name |
++---------------+--------------+
+| John          | King         |
+| Jay           | John         |
+| Nidhi         | King         |
+| Mohit         | Jay          |
+| Venky         | John         |
+| Ojas          | Jay          |
++---------------+--------------+
+6 rows in set (0.00 sec)
+
+mysql> select ename, emp.deptid, dname
+    -> from emp left join dept
+    -> on emp.deptid=dept.deptid;
++-------+--------+---------------+
+| ename | deptid | dname         |
++-------+--------+---------------+
+| King  |     10 | HR            |
+| John  |     10 | HR            |
+| Jay   |     20 | Accounts      |
+| Nidhi |     40 | IT operations |
+| Mohit |     40 | IT operations |
+| Venky |     30 | Insurance     |
+| Ojas  |   NULL | NULL          |
++-------+--------+---------------+
+7 rows in set (0.00 sec)
+
+mysql> select ename, emp.deptid, dname
+    -> from emp join dept
+    -> on emp.deptid=dept.deptid;
++-------+--------+---------------+
+| ename | deptid | dname         |
++-------+--------+---------------+
+| King  |     10 | HR            |
+| John  |     10 | HR            |
+| Jay   |     20 | Accounts      |
+| Nidhi |     40 | IT operations |
+| Mohit |     40 | IT operations |
+| Venky |     30 | Insurance     |
++-------+--------+---------------+
+6 rows in set (0.00 sec)
+
+mysql> alter table dept add (location_id integer);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from dept;
++--------+---------------+-------------+
+| deptid | dname         | location_id |
++--------+---------------+-------------+
+|     10 | HR            |        NULL |
+|     20 | Accounts      |        NULL |
+|     30 | Insurance     |        NULL |
+|     40 | IT operations |        NULL |
+|     50 | Sales         |        NULL |
++--------+---------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> create table location(loc_id integer, loc_name varchar(20));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into location values(1 ,'delhi');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into location values(2 ,'pune');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into location values(3 ,'mumbai');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into location values(4 ,'vizag');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into location values(5 ,'bbsr');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from location;
++--------+----------+
+| loc_id | loc_name |
++--------+----------+
+|      1 | delhi    |
+|      2 | pune     |
+|      3 | mumbai   |
+|      4 | vizag    |
+|      5 | bbsr     |
++--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> alter table location add constraint primary key(loc_id);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table dept add constraint akemp foreign key(location_id) references location(loc_id);
+Query OK, 5 rows affected (0.04 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> desc dept;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| deptid      | int         | NO   | PRI | NULL    |       |
+| dname       | varchar(20) | YES  |     | NULL    |       |
+| location_id | int         | YES  | MUL | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-------+-------+--------+------------+-----------+-----------+--------+
+| empid | ename | salary | hiredate   | address   | managerid | deptid |
++-------+-------+--------+------------+-----------+-----------+--------+
+|   101 | King  |  50000 | 2020-09-09 | Delhi     |      NULL |     10 |
+|   102 | John  |  45000 | 2020-10-09 | Pune      |       101 |     10 |
+|   103 | Jay   |  40000 | 2021-10-09 | Mumbai    |       102 |     20 |
+|   104 | Nidhi |  25000 | 2021-10-09 | Mumbai    |       101 |     40 |
+|   105 | Mohit |  25000 | 2021-09-09 | Pune      |       103 |     40 |
+|   106 | Venky |  45000 | 2023-04-07 | Chennai   |       102 |     30 |
+|   107 | Ojas  |  48000 | 2023-05-11 | Ratnagiri |       103 |   NULL |
++-------+-------+--------+------------+-----------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> update dept set location_id = 2 where deptid in (10,30);
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> pdate dept set location_id = 5 where deptid in (20,40);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'pdate dept set location_id = 5 where deptid in (20,40)' at line 1
+mysql> update dept set location_id = 5 where deptid in (20,40);
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from dept;
++--------+---------------+-------------+
+| deptid | dname         | location_id |
++--------+---------------+-------------+
+|     10 | HR            |           2 |
+|     20 | Accounts      |           5 |
+|     30 | Insurance     |           2 |
+|     40 | IT operations |           5 |
+|     50 | Sales         |        NULL |
++--------+---------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select ename, loc_name , dname, loc_id
+    -> from emp, dept , location
+    -> where emp.deptid = dept.deptid and dept.location_id = location.loc_id;
++-------+----------+---------------+--------+
+| ename | loc_name | dname         | loc_id |
++-------+----------+---------------+--------+
+| King  | pune     | HR            |      2 |
+| John  | pune     | HR            |      2 |
+| Jay   | bbsr     | Accounts      |      5 |
+| Nidhi | bbsr     | IT operations |      5 |
+| Mohit | bbsr     | IT operations |      5 |
+| Venky | pune     | Insurance     |      2 |
++-------+----------+---------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select ename, dname
+    -> from emp join dept
+    -> on emp.deptid=dept.deptid
+    -> where ename like '%o%';
++-------+---------------+
+| ename | dname         |
++-------+---------------+
+| John  | HR            |
+| Mohit | IT operations |
++-------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> select e.ename, e.empid , m.ename as 'Manager', m.empid
+    -> from emp e, emp m
+    -> where e.empid=m.empid;
++-------+-------+---------+-------+
+| ename | empid | Manager | empid |
++-------+-------+---------+-------+
+| King  |   101 | King    |   101 |
+| John  |   102 | John    |   102 |
+| Jay   |   103 | Jay     |   103 |
+| Nidhi |   104 | Nidhi   |   104 |
+| Mohit |   105 | Mohit   |   105 |
+| Venky |   106 | Venky   |   106 |
+| Ojas  |   107 | Ojas    |   107 |
++-------+-------+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select e.ename, e.empid , m.ename as 'Manager', m.empid
+    -> from emp e, emp m
+    -> where e.managerid=m.empid;
++-------+-------+---------+-------+
+| ename | empid | Manager | empid |
++-------+-------+---------+-------+
+| John  |   102 | King    |   101 |
+| Jay   |   103 | John    |   102 |
+| Nidhi |   104 | King    |   101 |
+| Mohit |   105 | Jay     |   103 |
+| Venky |   106 | John    |   102 |
+| Ojas  |   107 | Jay     |   103 |
++-------+-------+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select e.ename as Employee, e.empid as 'Emp ID', m.ename as 'Manager', m.empid as 'Manager ID'
+    -> from emp e, emp m
+    -> where e.managerid=m.empid;
++----------+--------+---------+------------+
+| Employee | Emp ID | Manager | Manager ID |
++----------+--------+---------+------------+
+| John     |    102 | King    |        101 |
+| Jay      |    103 | John    |        102 |
+| Nidhi    |    104 | King    |        101 |
+| Mohit    |    105 | Jay     |        103 |
+| Venky    |    106 | John    |        102 |
+| Ojas     |    107 | Jay     |        103 |
++----------+--------+---------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select e.ename as Employee, e.empid as 'Emp ID', m.ename as 'Manager', m.empid as 'Manager ID'
+    -> from emp e left join emp m
+    -> on e.managerid=m.empid;
++----------+--------+---------+------------+
+| Employee | Emp ID | Manager | Manager ID |
++----------+--------+---------+------------+
+| King     |    101 | NULL    |       NULL |
+| John     |    102 | King    |        101 |
+| Jay      |    103 | John    |        102 |
+| Nidhi    |    104 | King    |        101 |
+| Mohit    |    105 | Jay     |        103 |
+| Venky    |    106 | John    |        102 |
+| Ojas     |    107 | Jay     |        103 |
++----------+--------+---------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select e.deptid, e.ename as 'employee' ,d.ename as 'colleague'
+    -> from emp e , emp d
+    -> where e.deptid = d.deptid
+    -> and e.ename != d.ename;
++--------+----------+-----------+
+| deptid | employee | colleague |
++--------+----------+-----------+
+|     10 | King     | John      |
+|     10 | John     | King      |
+|     40 | Nidhi    | Mohit     |
+|     40 | Mohit    | Nidhi     |
++--------+----------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select e.deptid, e.ename as 'employee' ,d.ename as 'colleague'
+    -> ^C
+mysql>
+mysql>  from emp e , emp d
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from emp e , emp d' at line 1
+mysql> select e.deptid, e.ename as 'employee' ,d.ename as 'colleague'
+    ->  from emp e , emp d
+    -> where e.deptid = d.deptid
+    -> and e.ename != d.ename
+    -> order by deptid;
++--------+----------+-----------+
+| deptid | employee | colleague |
++--------+----------+-----------+
+|     10 | King     | John      |
+|     10 | John     | King      |
+|     40 | Nidhi    | Mohit     |
+|     40 | Mohit    | Nidhi     |
++--------+----------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select ename, hiredate
+    -> from emp
+    -> where hiredate > '2020-10-09';
++-------+------------+
+| ename | hiredate   |
++-------+------------+
+| Jay   | 2021-10-09 |
+| Nidhi | 2021-10-09 |
+| Mohit | 2021-09-09 |
+| Venky | 2023-04-07 |
+| Ojas  | 2023-05-11 |
++-------+------------+
+5 rows in set (0.00 sec)
+
+mysql>  select ename, hiredate
+    -> from emp
+    -> where hiredate > (select hiredate from emp where ename='Jay');
++-------+------------+
+| ename | hiredate   |
++-------+------------+
+| Venky | 2023-04-07 |
+| Ojas  | 2023-05-11 |
++-------+------------+
+2 rows in set (0.00 sec)
+
+mysql>  select ename, hiredate
+    -> from emp
+    -> where hiredate > (select hiredate from emp where ename='King');
++-------+------------+
+| ename | hiredate   |
++-------+------------+
+| John  | 2020-10-09 |
+| Jay   | 2021-10-09 |
+| Nidhi | 2021-10-09 |
+| Mohit | 2021-09-09 |
+| Venky | 2023-04-07 |
+| Ojas  | 2023-05-11 |
++-------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select e.ename as Employee, e.hiredate as 'Emp Date', m.ename as 'Manager', m.hiredate as 'Mng Date'
+    -> from emp e join emp m
+    -> on e.managerid=m.empid
+    -> where e.hiredate<m.hiredate;
++----------+------------+---------+------------+
+| Employee | Emp Date   | Manager | Mng Date   |
++----------+------------+---------+------------+
+| Mohit    | 2021-09-09 | Jay     | 2021-10-09 |
++----------+------------+---------+------------+
+1 row in set (0.00 sec)

@@ -1,0 +1,755 @@
+Microsoft Windows [Version 10.0.18362.1316]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\Users\duasp>"C:\Program Files\MySQL\MySQL Server 9.0\bin\mysql.exe" -u root -p --port 3307
+Enter password: *****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 30
+Server version: 9.0.1 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database IshwariMohit;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use IshwariMohit;
+Database changed
+mysql> create table Designation_masters;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> create table Designation_Masters(Design_code integer Primary Key , Design_name varchar(50));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc Designation_masters;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| Design_code | int         | NO   | PRI | NULL    |       |
+| Design_name | varchar(50) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> create table Department_masters;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> create table Department_masters(Dept_code integer Primary key, Dept_name varchar(50));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc Department_masters;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Dept_code | int         | NO   | PRI | NULL    |       |
+| Dept_name | varchar(50) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> create Students_masters(Student_code integer Primary key,Student_name varchar(50) Not Null, Dept_code integer,Student_dob date, Student_address varchar(240));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Students_masters(Student_code integer Primary key,Student_name varchar(50) Not N' at line 1
+mysql> create Students_masters(Student_code integer Primary key,Student_name varchar(50) not null, Dept_code integer,Student_dob date, Student_address varchar(240));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Students_masters(Student_code integer Primary key,Student_name varchar(50) not n' at line 1
+mysql> create table Students_masters(Student_code integer Primary key,Student_name varchar(50) not null, Dept_code integer,Student_dob date, Student_address varchar(240));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc Students_masters;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| Student_code    | int          | NO   | PRI | NULL    |       |
+| Student_name    | varchar(50)  | NO   |     | NULL    |       |
+| Dept_code       | int          | YES  |     | NULL    |       |
+| Student_dob     | date         | YES  |     | NULL    |       |
+| Student_address | varchar(240) | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> create Student_marks(Student_code integer primary key, Student_year integer NOT NULL, Subject1 integer, Subject2 integer, Subject3 integer);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Student_marks(Student_code integer primary key, Student_year integer NOT NULL, S' at line 1
+mysql> create table Student_marks(Student_code integer primary key, Student_year integer NOT NULL, Subject1 integer, Subject2 integer, Subject3 integer);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc Student_marks;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| Student_code | int  | NO   | PRI | NULL    |       |
+| Student_year | int  | NO   |     | NULL    |       |
+| Subject1     | int  | YES  |     | NULL    |       |
+| Subject2     | int  | YES  |     | NULL    |       |
+| Subject3     | int  | YES  |     | NULL    |       |
++--------------+------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> create table Staff_masters(Staff_code integer primary key, Staff_name varchar(50) not null, Design_code integer, Dept_code integer, HireDate date, Staff_dob date, Staff_address varchar(50), Mgr_code integer, Staff_sal integer);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc Staff_masters;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| Staff_code    | int         | NO   | PRI | NULL    |       |
+| Staff_name    | varchar(50) | NO   |     | NULL    |       |
+| Design_code   | int         | YES  |     | NULL    |       |
+| Dept_code     | int         | YES  |     | NULL    |       |
+| HireDate      | date        | YES  |     | NULL    |       |
+| Staff_dob     | date        | YES  |     | NULL    |       |
+| Staff_address | varchar(50) | YES  |     | NULL    |       |
+| Mgr_code      | int         | YES  |     | NULL    |       |
+| Staff_sal     | int         | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> create table Book_masters(Book_code integer primary key, Book_name varchar(50) not null, Book_pub_year integer, Book_pub_author varchar(50));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc Book_masters;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| Book_code       | int         | NO   | PRI | NULL    |       |
+| Book_name       | varchar(50) | NO   |     | NULL    |       |
+| Book_pub_year   | int         | YES  |     | NULL    |       |
+| Book_pub_author | varchar(50) | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create table Book_transactions(Book_code integer, Student_code integer, Staff_code integer, Book_issue_date date not null, Book_expected_return_date date not null, Book_actual_return_date date );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc Book_transactions;
++---------------------------+------+------+-----+---------+-------+
+| Field                     | Type | Null | Key | Default | Extra |
++---------------------------+------+------+-----+---------+-------+
+| Book_code                 | int  | YES  |     | NULL    |       |
+| Student_code              | int  | YES  |     | NULL    |       |
+| Staff_code                | int  | YES  |     | NULL    |       |
+| Book_issue_date           | date | NO   |     | NULL    |       |
+| Book_expected_return_date | date | NO   |     | NULL    |       |
+| Book_actual_return_date   | date | YES  |     | NULL    |       |
++---------------------------+------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> show tables;
++------------------------+
+| Tables_in_ishwarimohit |
++------------------------+
+| book_masters           |
+| book_transactions      |
+| department_masters     |
+| designation_masters    |
+| staff_masters          |
+| student_marks          |
+| students_masters       |
++------------------------+
+7 rows in set (0.00 sec)
+
+mysql> alter table Students_masters add constraint fkStudents_masters foreign key(Dept_code) references Department_masters (Dept_code);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Students_masters;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| Student_code    | int          | NO   | PRI | NULL    |       |
+| Student_name    | varchar(50)  | NO   |     | NULL    |       |
+| Dept_code       | int          | YES  | MUL | NULL    |       |
+| Student_dob     | date         | YES  |     | NULL    |       |
+| Student_address | varchar(240) | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table Student_marks drop primary key;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Student_marks;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| Student_code | int  | NO   |     | NULL    |       |
+| Student_year | int  | NO   |     | NULL    |       |
+| Subject1     | int  | YES  |     | NULL    |       |
+| Subject2     | int  | YES  |     | NULL    |       |
+| Subject3     | int  | YES  |     | NULL    |       |
++--------------+------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into Students_marks add (Subid integer primary key);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'add (Subid integer primary key)' at line 1
+mysql> insert Students_marks add (Subid integer primary key);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'add (Subid integer primary key)' at line 1
+mysql> insert into Students_marks add(Subid integer primary key);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'add(Subid integer primary key)' at line 1
+mysql> insert into Students_marks(Subid integer primary key);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'integer primary key)' at line 1
+mysql> alter table Student_marks add(Subid integer primary key);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Student_marks;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| Student_code | int  | NO   |     | NULL    |       |
+| Student_year | int  | NO   |     | NULL    |       |
+| Subject1     | int  | YES  |     | NULL    |       |
+| Subject2     | int  | YES  |     | NULL    |       |
+| Subject3     | int  | YES  |     | NULL    |       |
+| Subid        | int  | NO   | PRI | NULL    |       |
++--------------+------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table Student_marks add constraint fkStudent_marks foreign key(Student_code) references Student_masters(Student_code);
+ERROR 1824 (HY000): Failed to open the referenced table 'student_masters'
+mysql> alter table Students_marks add constraint fkStudents_marks foreign key(Student_code) references Students_masters(Student_code);
+ERROR 1146 (42S02): Table 'ishwarimohit.students_marks' doesn't exist
+mysql> alter table Student_marks add constraint fkStudents_marks foreign key(Student_code) references Students_masters(Student_code);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Student_marks;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| Student_code | int  | NO   | MUL | NULL    |       |
+| Student_year | int  | NO   |     | NULL    |       |
+| Subject1     | int  | YES  |     | NULL    |       |
+| Subject2     | int  | YES  |     | NULL    |       |
+| Subject3     | int  | YES  |     | NULL    |       |
+| Subid        | int  | NO   | PRI | NULL    |       |
++--------------+------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table Staff_masters add constraint fkStaff_masters foreign key(Design_code) references Designation_masters(Design_code);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Staff_masters;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| Staff_code    | int         | NO   | PRI | NULL    |       |
+| Staff_name    | varchar(50) | NO   |     | NULL    |       |
+| Design_code   | int         | YES  | MUL | NULL    |       |
+| Dept_code     | int         | YES  |     | NULL    |       |
+| HireDate      | date        | YES  |     | NULL    |       |
+| Staff_dob     | date        | YES  |     | NULL    |       |
+| Staff_address | varchar(50) | YES  |     | NULL    |       |
+| Mgr_code      | int         | YES  |     | NULL    |       |
+| Staff_sal     | int         | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> alter table Staff_masters add constraint fkStaff_masters foreign key(Dept_code) references Department_masters(Dept_code);
+ERROR 1061 (42000): Duplicate key name 'fkStaff_masters'
+mysql> alter table Staff_masters add constraint fkStaff_masters1 foreign key(Dept_code) references Department_masters(Dept_code);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Staff_masters;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| Staff_code    | int         | NO   | PRI | NULL    |       |
+| Staff_name    | varchar(50) | NO   |     | NULL    |       |
+| Design_code   | int         | YES  | MUL | NULL    |       |
+| Dept_code     | int         | YES  | MUL | NULL    |       |
+| HireDate      | date        | YES  |     | NULL    |       |
+| Staff_dob     | date        | YES  |     | NULL    |       |
+| Staff_address | varchar(50) | YES  |     | NULL    |       |
+| Mgr_code      | int         | YES  |     | NULL    |       |
+| Staff_sal     | int         | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> alter table Book_transactions add(Bookid integer primary key);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table Book_transactions add constraint fkBook_transactions foreign key(Book_code) references Book_masters(Book_code);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table Book_transactions add constraint fkBook_transactions foreign key(Student_code) references Student_marks(Student_code);
+ERROR 1061 (42000): Duplicate key name 'fkBook_transactions'
+mysql> alter table Book_transactions add constraint fkBook_transactions1 foreign key(Student_code) references Student_marks(Student_code);
+ERROR 6125 (HY000): Failed to add the foreign key constraint. Missing unique key for constraint 'fkBook_transactions1' in the referenced table 'student_marks'
+mysql> alter table Book_transactions add constraint fkBook_transactions1 foreign key(Student_code) references Students_marks(Student_code);
+ERROR 1824 (HY000): Failed to open the referenced table 'students_marks'
+mysql> alter table Book_transactions add constraint fkBook_transactions1 foreign key(Student_code) references Student_masters(Student_code);
+ERROR 1824 (HY000): Failed to open the referenced table 'student_masters'
+mysql> alter table Book_transactions add constraint fkBook_transactions1 foreign key(Student_code) references Students_masters(Student_code);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table Book_transactions add constraint fkBook_transactions2 foreign key(Staff_code) references Staff_masters(Staff_code);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Book_transcations;
+ERROR 1146 (42S02): Table 'ishwarimohit.book_transcations' doesn't exist
+mysql> desc Book_transactions;
++---------------------------+------+------+-----+---------+-------+
+| Field                     | Type | Null | Key | Default | Extra |
++---------------------------+------+------+-----+---------+-------+
+| Book_code                 | int  | YES  | MUL | NULL    |       |
+| Student_code              | int  | YES  | MUL | NULL    |       |
+| Staff_code                | int  | YES  | MUL | NULL    |       |
+| Book_issue_date           | date | NO   |     | NULL    |       |
+| Book_expected_return_date | date | NO   |     | NULL    |       |
+| Book_actual_return_date   | date | YES  |     | NULL    |       |
+| Bookid                    | int  | NO   | PRI | NULL    |       |
++---------------------------+------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> show tables;
++------------------------+
+| Tables_in_ishwarimohit |
++------------------------+
+| book_masters           |
+| book_transactions      |
+| department_masters     |
+| designation_masters    |
+| staff_masters          |
+| student_marks          |
+| students_masters       |
++------------------------+
+7 rows in set (0.00 sec)
+
+mysql> insert into designation_masters values(100,'professor');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into designation_masters values(200,'Lecturer');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into designation_masters values(200,'Coordinator');
+ERROR 1062 (23000): Duplicate entry '200' for key 'designation_masters.PRIMARY'
+mysql> insert into designation_masters values(300,'Coordinator');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from designation_masters;
++-------------+-------------+
+| Design_code | Design_name |
++-------------+-------------+
+|         100 | professor   |
+|         200 | Lecturer    |
+|         300 | Coordinator |
++-------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into department_masters(100,'CSE');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '100,'CSE')' at line 1
+mysql> insert into department_masters values(100,'CSE');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into department_masters values(200,'AIDS');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into department_masters values(300,'CIVIL');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from department_masters;
++-----------+-----------+
+| Dept_code | Dept_name |
++-----------+-----------+
+|       100 | CSE       |
+|       200 | AIDS      |
+|       300 | CIVIL     |
++-----------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> insert into students_masters values(101,'Ishwari',100,'2003-05-30','Pusad');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into students_masters values(102,'Mohit',200,'2002-05-20','Pune');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into students_masters values(103,'Raj',300,'2002-10-14','Odisa');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from students_masters;
++--------------+--------------+-----------+-------------+-----------------+
+| Student_code | Student_name | Dept_code | Student_dob | Student_address |
++--------------+--------------+-----------+-------------+-----------------+
+|          101 | Ishwari      |       100 | 2003-05-30  | Pusad           |
+|          102 | Mohit        |       200 | 2002-05-20  | Pune            |
+|          103 | Raj          |       300 | 2002-10-14  | Odisa           |
++--------------+--------------+-----------+-------------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into student_marks values(101,1,30,40,50,001);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student_marks values(102,2,35,41,20,002);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student_marks values(103,3,46,29,40,003);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from student_marks;
++--------------+--------------+----------+----------+----------+-------+
+| Student_code | Student_year | Subject1 | Subject2 | Subject3 | Subid |
++--------------+--------------+----------+----------+----------+-------+
+|          101 |            1 |       30 |       40 |       50 |     1 |
+|          102 |            2 |       35 |       41 |       20 |     2 |
+|          103 |            3 |       46 |       29 |       40 |     3 |
++--------------+--------------+----------+----------+----------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into  staff_masters values(1011,'Shital',100,100,2023-01-01,1947-08-15,'Mumbai',11,30000);
+ERROR 1292 (22007): Incorrect date value: '2021' for column 'HireDate' at row 1
+mysql> insert into  staff_masters values(1011,'Shital',100,100,'2023-01-01','1947-08-15','Mumbai',11,30000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into  staff_masters values(1012,'Nisha',200,200,'2023-10-23','1955-04-12','Banglore',22,40000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into  staff_masters values(1013,'Pooja',300,300,'2024-12-20','1998-11-25','Delhi',33,50000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from  staff_masters;
++------------+------------+-------------+-----------+------------+------------+---------------+----------+-----------+
+| Staff_code | Staff_name | Design_code | Dept_code | HireDate   | Staff_dob  | Staff_address | Mgr_code | Staff_sal |
++------------+------------+-------------+-----------+------------+------------+---------------+----------+-----------+
+|       1011 | Shital     |         100 |       100 | 2023-01-01 | 1947-08-15 | Mumbai        |       11 |     30000 |
+|       1012 | Nisha      |         200 |       200 | 2023-10-23 | 1955-04-12 | Banglore      |       22 |     40000 |
+|       1013 | Pooja      |         300 |       300 | 2024-12-20 | 1998-11-25 | Delhi         |       33 |     50000 |
++------------+------------+-------------+-----------+------------+------------+---------------+----------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> insert into book_masters values(1122,'Ikigai',2001,'HG');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into book_masters values(3344,'Doglapan',2021,'AG');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into book_masters values(5566,'Ben10',2012,'WB');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from book_masters;
++-----------+-----------+---------------+-----------------+
+| Book_code | Book_name | Book_pub_year | Book_pub_author |
++-----------+-----------+---------------+-----------------+
+|      1122 | Ikigai    |          2001 | HG              |
+|      3344 | Doglapan  |          2021 | AG              |
+|      5566 | Ben10     |          2012 | WB              |
++-----------+-----------+---------------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into book_transactions values(1122,101,1011,'2024-10-14','2024-10-15','2025-10-15');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into book_transactions values(1122,101,1011,'2024-10-14','2024-10-15','2025-10-15',00000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into book_transactions values(1122,101,1011,'2024-05-23','2024-06-10','2026-10-15',11111);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into book_transactions values(5566,102,1012,'2023-05-23','2023-06-23','2027-05-29',33333);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into book_transactions values(3344,103,1013,'2022-11-13','2023-05-11','2024-09129',44444);
+ERROR 1292 (22007): Incorrect date value: '2024-09129' for column 'Book_actual_return_date' at row 1
+mysql> insert into book_transactions values(3344,103,1013,'2022-11-13','2023-05-11','2024-09-29',44444);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * book_transactions;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'book_transactions' at line 1
+mysql> select * from book_transactions;
++-----------+--------------+------------+-----------------+---------------------------+-------------------------+--------+
+| Book_code | Student_code | Staff_code | Book_issue_date | Book_expected_return_date | Book_actual_return_date | Bookid |
++-----------+--------------+------------+-----------------+---------------------------+-------------------------+--------+
+|      1122 |          101 |       1011 | 2024-10-14      | 2024-10-15                | 2025-10-15              |      0 |
+|      1122 |          101 |       1011 | 2024-05-23      | 2024-06-10                | 2026-10-15              |  11111 |
+|      5566 |          102 |       1012 | 2023-05-23      | 2023-06-23                | 2027-05-29              |  33333 |
+|      3344 |          103 |       1013 | 2022-11-13      | 2023-05-11                | 2024-09-29              |  44444 |
++-----------+--------------+------------+-----------------+---------------------------+-------------------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select Staff_code,Staff_name,Staff_sal from Staff_masters;
++------------+------------+-----------+
+| Staff_code | Staff_name | Staff_sal |
++------------+------------+-----------+
+|       1011 | Shital     |     30000 |
+|       1012 | Nisha      |     40000 |
+|       1013 | Pooja      |     50000 |
++------------+------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select Staff_code,Staff_name,Staff_sal from Staff_masters where dept_code=200,300;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',300' at line 1
+mysql> select Staff_code,Staff_name,Staff_sal from Staff_masters where Dept_code=200,300;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',300' at line 1
+mysql> select Staff_code,Staff_name,Staff_sal from Staff_masters where Dept_code=200;
++------------+------------+-----------+
+| Staff_code | Staff_name | Staff_sal |
++------------+------------+-----------+
+|       1012 | Nisha      |     40000 |
++------------+------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select Staff_code,Staff_name,Staff_sal from Staff_masters where Dept_code=200 and Dept_code=300;
+Empty set (0.00 sec)
+
+mysql> select Staff_code,Staff_name,Staff_sal from Staff_masters where Dept_code=200 and Dept_code=100;
+Empty set (0.00 sec)
+
+mysql> select Staff_code,Staff_name,Staff_sal from Staff_masters where Dept_code=200 or Dept_code=100;
++------------+------------+-----------+
+| Staff_code | Staff_name | Staff_sal |
++------------+------------+-----------+
+|       1011 | Shital     |     30000 |
+|       1012 | Nisha      |     40000 |
++------------+------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> select * from Staff_members;
+ERROR 1146 (42S02): Table 'ishwarimohit.staff_members' doesn't exist
+mysql> select * from Staff_member;
+ERROR 1146 (42S02): Table 'ishwarimohit.staff_member' doesn't exist
+mysql> select * from Staff_masters;
++------------+------------+-------------+-----------+------------+------------+---------------+----------+-----------+
+| Staff_code | Staff_name | Design_code | Dept_code | HireDate   | Staff_dob  | Staff_address | Mgr_code | Staff_sal |
++------------+------------+-------------+-----------+------------+------------+---------------+----------+-----------+
+|       1011 | Shital     |         100 |       100 | 2023-01-01 | 1947-08-15 | Mumbai        |       11 |     30000 |
+|       1012 | Nisha      |         200 |       200 | 2023-10-23 | 1955-04-12 | Banglore      |       22 |     40000 |
+|       1013 | Pooja      |         300 |       300 | 2024-12-20 | 1998-11-25 | Delhi         |       33 |     50000 |
++------------+------------+-------------+-----------+------------+------------+---------------+----------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select Staff_code as Code, Staff_name as name, Design_code as Designid, Dept_code as deptid, Hiredate as JD, Staff_dob as BirthDate, Staff_address as Location, Mgr_code as MC, Staff_sal as Salary);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> select Staff_code as Code, Staff_name as name, Design_code as Designid, Dept_code as deptid, Hiredate as JD, Staff_dob as BirthDate, Staff_address as Location, Mgr_code as MC, Staff_sal as Salary from Staff_masters ;
++------+--------+----------+--------+------------+------------+----------+------+--------+
+| Code | name   | Designid | deptid | JD         | BirthDate  | Location | MC   | Salary |
++------+--------+----------+--------+------------+------------+----------+------+--------+
+| 1011 | Shital |      100 |    100 | 2023-01-01 | 1947-08-15 | Mumbai   |   11 |  30000 |
+| 1012 | Nisha  |      200 |    200 | 2023-10-23 | 1955-04-12 | Banglore |   22 |  40000 |
+| 1013 | Pooja  |      300 |    300 | 2024-12-20 | 1998-11-25 | Delhi    |   33 |  50000 |
++------+--------+----------+--------+------------+------------+----------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from Students_marks;
+ERROR 1146 (42S02): Table 'ishwarimohit.students_marks' doesn't exist
+mysql> select * from Student_marks;
++--------------+--------------+----------+----------+----------+-------+
+| Student_code | Student_year | Subject1 | Subject2 | Subject3 | Subid |
++--------------+--------------+----------+----------+----------+-------+
+|          101 |            1 |       30 |       40 |       50 |     1 |
+|          102 |            2 |       35 |       41 |       20 |     2 |
+|          103 |            3 |       46 |       29 |       40 |     3 |
++--------------+--------------+----------+----------+----------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select Student_code,Subject1,Subject2,Subject3,Subject1+Subject2+Subject3 as total from Student_marks;
++--------------+----------+----------+----------+-------+
+| Student_code | Subject1 | Subject2 | Subject3 | total |
++--------------+----------+----------+----------+-------+
+|          101 |       30 |       40 |       50 |   120 |
+|          102 |       35 |       41 |       20 |    96 |
+|          103 |       46 |       29 |       40 |   115 |
++--------------+----------+----------+----------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from Designation_masters;
++-------------+-------------+
+| Design_code | Design_name |
++-------------+-------------+
+|         100 | professor   |
+|         200 | Lecturer    |
+|         300 | Coordinator |
++-------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select from Design_name where Design_name=professor or Design_name=Lecturer from  Designation_masters;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from Design_name where Design_name=professor or Design_name=Lecturer from  Desig' at line 1
+mysql> select from Design_name where Design_name='professor' or Design_name='Lecturer' from  Designation_masters;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from Design_name where Design_name='professor' or Design_name='Lecturer' from  D' at line 1
+mysql> select Design_name where Design_name='professor' or Design_name='Lecturer' from  Designation_masters;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from  Designation_masters' at line 1
+mysql> select Design_name from  Designation_masters where Design_name='professor' or Design_name='Lecturer';
++-------------+
+| Design_name |
++-------------+
+| professor   |
+| Lecturer    |
++-------------+
+2 rows in set (0.00 sec)
+
+mysql> select Design_code,Design_name from  Designation_masters where Design_name='professor' or Design_name='Lecturer';
++-------------+-------------+
+| Design_code | Design_name |
++-------------+-------------+
+|         100 | professor   |
+|         200 | Lecturer    |
++-------------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from Staff_masters;
++------------+------------+-------------+-----------+------------+------------+---------------+----------+-----------+
+| Staff_code | Staff_name | Design_code | Dept_code | HireDate   | Staff_dob  | Staff_address | Mgr_code | Staff_sal |
++------------+------------+-------------+-----------+------------+------------+---------------+----------+-----------+
+|       1011 | Shital     |         100 |       100 | 2023-01-01 | 1947-08-15 | Mumbai        |       11 |     30000 |
+|       1012 | Nisha      |         200 |       200 | 2023-10-23 | 1955-04-12 | Banglore      |       22 |     40000 |
+|       1013 | Pooja      |         300 |       300 | 2024-12-20 | 1998-11-25 | Delhi         |       33 |     50000 |
++------------+------------+-------------+-----------+------------+------------+---------------+----------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select Staff_code,Staff_name,Dept_code from Staff_masters where datediff(currentdate(),hiredate())>365;
+ERROR 1305 (42000): FUNCTION ishwarimohit.currentdate does not exist
+mysql> select Staff_code,Staff_name,Dept_code from Staff_masters where datediff(current_date(),hiredate())>365;
+ERROR 1305 (42000): FUNCTION ishwarimohit.hiredate does not exist
+mysql> select Staff_code,Staff_name,Dept_code from Staff_masters where datediff(current_date(),hiredate())>365;
+ERROR 1305 (42000): FUNCTION ishwarimohit.hiredate does not exist
+mysql> select Staff_code,Staff_name,Dept_code from Staff_masters where datediff(current_date(),Hiredate())>365;
+ERROR 1305 (42000): FUNCTION ishwarimohit.Hiredate does not exist
+mysql> select Staff_code,Staff_name,Dept_code from Staff_masters where datediff(current_date(),HireDate())>365;
+ERROR 1305 (42000): FUNCTION ishwarimohit.HireDate does not exist
+mysql> select Staff_code,Staff_name,Dept_code,HireDate from Staff_masters;
++------------+------------+-----------+------------+
+| Staff_code | Staff_name | Dept_code | HireDate   |
++------------+------------+-----------+------------+
+|       1011 | Shital     |       100 | 2023-01-01 |
+|       1012 | Nisha      |       200 | 2023-10-23 |
+|       1013 | Pooja      |       300 | 2024-12-20 |
++------------+------------+-----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select Staff_code,Staff_name,Dept_code,HireDate from Staff_masters where datediff(2024-10-14,HireDate);
+Empty set, 1 warning (0.00 sec)
+
+mysql> select Staff_code,Staff_name,Dept_code,HireDate from Staff_masters where datediff(2023-10-14,HireDate);
+Empty set, 1 warning (0.00 sec)
+
+mysql> select Staff_code,Staff_name,Dept_code,HireDate from Staff_masters where datediff(2023-10-14,HireDate)>365;
+Empty set, 1 warning (0.00 sec)
+
+mysql> select Staff_code,Staff_name,Dept_code,HireDate from Staff_masters where datediff(2045-10-14,HireDate)>365;
+Empty set, 1 warning (0.00 sec)
+
+mysql> show warnings;
++---------+------+----------------------------------+
+| Level   | Code | Message                          |
++---------+------+----------------------------------+
+| Warning | 1292 | Incorrect datetime value: '2021' |
++---------+------+----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select Staff_code,Staff_name,Dept_code,HireDate from Staff_masters where datediff('2024-10-14',HireDate)>365;
++------------+------------+-----------+------------+
+| Staff_code | Staff_name | Dept_code | HireDate   |
++------------+------------+-----------+------------+
+|       1011 | Shital     |       100 | 2023-01-01 |
++------------+------------+-----------+------------+
+1 row in set (0.00 sec)
+
+mysql> select Staff_name, Design_name from Staff_masters where HireDate < CurrentDate();
+ERROR 1054 (42S22): Unknown column 'Design_name' in 'field list'
+mysql> select Staff_name, Design_name from Staff_masters, Designation_masters where HireDate < CurrentDate();
+ERROR 1305 (42000): FUNCTION ishwarimohit.CurrentDate does not exist
+mysql> select Staff_name, Design_name from Staff_masters, Designation_masters where HireDate < Current_Date();
++------------+-------------+
+| Staff_name | Design_name |
++------------+-------------+
+| Nisha      | professor   |
+| Shital     | professor   |
+| Nisha      | Lecturer    |
+| Shital     | Lecturer    |
+| Nisha      | Coordinator |
+| Shital     | Coordinator |
++------------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select Staff_name, Design_name from Staff_masters, Designation_masters where HireDate < Current_Date() group by Design_code;
+ERROR 1052 (23000): Column 'Design_code' in group statement is ambiguous
+mysql> select Staff_name, Design_name from Staff_masters, Designation_masters where HireDate < Current_Date() group by Design_name;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'ishwarimohit.Staff_masters.Staff_name' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select Staff_name, Design_name from Staff_masters, Designation_masters group by Design_code where HireDate < Current_Date();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where HireDate < Current_Date()' at line 1
+mysql> select Staff_name, Design_name, Design_code from Staff_masters, Designation_masters where HireDate < Current_Date() group by Design_name;
+ERROR 1052 (23000): Column 'Design_code' in field list is ambiguous
+mysql> select Staff_name, Design_name, Designation_masters.Design_code from Staff_masters, Designation_masters where HireDate < Current_Date() group by Design_name;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'ishwarimohit.Staff_masters.Staff_name' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select Staff_masters.Staff_name, Designation_masters.Design_name, Designation_masters.Design_code from Staff_masters, Designation_masters where HireDate < Current_Date() group by Design_name;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'ishwarimohit.Staff_masters.Staff_name' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select Staff_name, Design_name, Design_code from Staff_masters, Designation_masters where HireDate < Current_Date() group by Design_name;
+ERROR 1052 (23000): Column 'Design_code' in field list is ambiguous
+mysql> select Staff_name, Design_name, Design_code from Staff_masters, Designation_masters where HireDate < Current_Date() group by Design_name,;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql>
+mysql>
+mysql> desc staff_master;
+ERROR 1146 (42S02): Table 'ishwarimohit.staff_master' doesn't exist
+mysql> desc staff_masters;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| Staff_code    | int         | NO   | PRI | NULL    |       |
+| Staff_name    | varchar(50) | NO   |     | NULL    |       |
+| Design_code   | int         | YES  | MUL | NULL    |       |
+| Dept_code     | int         | YES  | MUL | NULL    |       |
+| HireDate      | date        | YES  |     | NULL    |       |
+| Staff_dob     | date        | YES  |     | NULL    |       |
+| Staff_address | varchar(50) | YES  |     | NULL    |       |
+| Mgr_code      | int         | YES  |     | NULL    |       |
+| Staff_sal     | int         | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> desc designation_masters;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| Design_code | int         | NO   | PRI | NULL    |       |
+| Design_name | varchar(50) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select staff_name,design_name from staff_masters s, designation_masters d
+    -> where s.design_code=d.design_code and datediff(current_date,hiredate)>1;
++------------+-------------+
+| staff_name | design_name |
++------------+-------------+
+| Shital     | professor   |
+| Nisha      | Lecturer    |
++------------+-------------+
+2 rows in set (0.00 sec)
+
+mysql>
+mysql> select * from staff_masters;
++------------+------------+-------------+-----------+------------+------------+---------------+----------+-----------+
+| Staff_code | Staff_name | Design_code | Dept_code | HireDate   | Staff_dob  | Staff_address | Mgr_code | Staff_sal |
++------------+------------+-------------+-----------+------------+------------+---------------+----------+-----------+
+|       1011 | Shital     |         100 |       100 | 2023-01-01 | 1947-08-15 | Mumbai        |       11 |     30000 |
+|       1012 | Nisha      |         200 |       200 | 2023-10-23 | 1955-04-12 | Banglore      |       22 |     40000 |
+|       1013 | Pooja      |         300 |       300 | 2024-12-20 | 1998-11-25 | Delhi         |       33 |     50000 |
++------------+------------+-------------+-----------+------------+------------+---------------+----------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select staff_name,design_name from staff_masters s, designation_masters d
+    -> where s.design_code=d.design_code and hiredate<current_date();
++------------+-------------+
+| staff_name | design_name |
++------------+-------------+
+| Shital     | professor   |
+| Nisha      | Lecturer    |
++------------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select Staff_name, design_name,Staff_sal * 120 as 'Income of 10 years' from staff_masters s, designation_master d
+    -> where s.design_code=d.design_code
+    -> ;
+ERROR 1146 (42S02): Table 'ishwarimohit.designation_master' doesn't exist
+mysql> select Staff_name, design_name from staff_masters s, designation_master d
+    -> where s.design_c;ode=d.design_code
+ERROR 1146 (42S02): Table 'ishwarimohit.designation_master' doesn't exist
+    -> select Staff_name, design_name from staff_masters s, designation_masters d
+    -> where s.design_code=d.design_code
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ode=d.design_code
+select Staff_name, design_name from staff_masters s, designa' at line 1
+mysql>
