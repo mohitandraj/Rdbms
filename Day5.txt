@@ -1,0 +1,242 @@
+Microsoft Windows [Version 10.0.18362.1316]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\Users\duasp>"C:\Program Files\MySQL\MySQL Server 9.0\bin\mysql.exe" -u root -p --port 3307
+Enter password: *****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 42
+Server version: 9.0.1 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use ishwarimohit
+Database changed
+mysql> show tables;
++------------------------+
+| Tables_in_ishwarimohit |
++------------------------+
+| book_masters           |
+| book_transactions      |
+| department_masters     |
+| designation_masters    |
+| staff_masters          |
+| student_marks          |
+| students_masters       |
++------------------------+
+7 rows in set (0.00 sec)
+
+mysql> desc ^C
+mysql> select * from designation_masters;
++-------------+-------------+
+| Design_code | Design_name |
++-------------+-------------+
+|         100 | professor   |
+|         200 | Lecturer    |
+|         300 | Coordinator |
++-------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> desc designation_masters;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| Design_code | int         | NO   | PRI | NULL    |       |
+| Design_name | varchar(50) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from department_masters;
++-----------+-----------+
+| Dept_code | Dept_name |
++-----------+-----------+
+|       100 | CSE       |
+|       200 | AIDS      |
+|       300 | CIVIL     |
++-----------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> desc departments_masters;
+ERROR 1146 (42S02): Table 'ishwarimohit.departments_masters' doesn't exist
+mysql> desc department_masters;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Dept_code | int         | NO   | PRI | NULL    |       |
+| Dept_name | varchar(50) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select*from students_masters;
++--------------+--------------+-----------+-------------+-----------------+
+| Student_code | Student_name | Dept_code | Student_dob | Student_address |
++--------------+--------------+-----------+-------------+-----------------+
+|          101 | Ishwari      |       100 | 2003-05-30  | Pusad           |
+|          102 | Mohit        |       200 | 2002-05-20  | Pune            |
+|          103 | Raj          |       300 | 2002-10-14  | Odisa           |
++--------------+--------------+-----------+-------------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> desc students_masters;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| Student_code    | int          | NO   | PRI | NULL    |       |
+| Student_name    | varchar(50)  | NO   |     | NULL    |       |
+| Dept_code       | int          | YES  | MUL | NULL    |       |
+| Student_dob     | date         | YES  |     | NULL    |       |
+| Student_address | varchar(240) | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student_marks;
++--------------+--------------+----------+----------+----------+-------+
+| Student_code | Student_year | Subject1 | Subject2 | Subject3 | Subid |
++--------------+--------------+----------+----------+----------+-------+
+|          101 |            1 |       30 |       40 |       50 |     1 |
+|          102 |            2 |       35 |       41 |       20 |     2 |
+|          103 |            3 |       46 |       29 |       40 |     3 |
++--------------+--------------+----------+----------+----------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc student_marks;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| Student_code | int  | NO   | MUL | NULL    |       |
+| Student_year | int  | NO   |     | NULL    |       |
+| Subject1     | int  | YES  |     | NULL    |       |
+| Subject2     | int  | YES  |     | NULL    |       |
+| Subject3     | int  | YES  |     | NULL    |       |
+| Subid        | int  | NO   | PRI | NULL    |       |
++--------------+------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> desc staff_masters;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| Staff_code    | int         | NO   | PRI | NULL    |       |
+| Staff_name    | varchar(50) | NO   |     | NULL    |       |
+| Design_code   | int         | YES  | MUL | NULL    |       |
+| Dept_code     | int         | YES  | MUL | NULL    |       |
+| HireDate      | date        | YES  |     | NULL    |       |
+| Staff_dob     | date        | YES  |     | NULL    |       |
+| Staff_address | varchar(50) | YES  |     | NULL    |       |
+| Mgr_code      | int         | YES  |     | NULL    |       |
+| Staff_sal     | int         | YES  |     | NULL    |       |
+| design_name   | varchar(50) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+10 rows in set (0.00 sec)
+
+mysql> desc book_masters;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| Book_code       | int         | NO   | PRI | NULL    |       |
+| Book_name       | varchar(50) | NO   |     | NULL    |       |
+| Book_pub_year   | int         | YES  |     | NULL    |       |
+| Book_pub_author | varchar(50) | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select*from book_masters;
++-----------+-----------+---------------+-----------------+
+| Book_code | Book_name | Book_pub_year | Book_pub_author |
++-----------+-----------+---------------+-----------------+
+|      1122 | Ikigai    |          2001 | HG              |
+|      3344 | Doglapan  |          2021 | AG              |
+|      5566 | Ben10     |          2012 | WB              |
++-----------+-----------+---------------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> select*from book_transactions;
++-----------+--------------+------------+-----------------+---------------------------+-------------------------+--------+
+| Book_code | Student_code | Staff_code | Book_issue_date | Book_expected_return_date | Book_actual_return_date | Bookid |
++-----------+--------------+------------+-----------------+---------------------------+-------------------------+--------+
+|      1122 |          101 |       1011 | 2024-10-14      | 2024-10-15                | 2025-10-15              |      0 |
+|      1122 |          101 |       1011 | 2024-05-23      | 2024-06-10                | 2026-10-15              |  11111 |
+|      5566 |          102 |       1012 | 2023-05-23      | 2023-06-23                | 2027-05-29              |  33333 |
+|      3344 |          103 |       1013 | 2022-11-13      | 2023-05-11                | 2024-09-29              |  44444 |
++-----------+--------------+------------+-----------------+---------------------------+-------------------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> desc book_transactions;
++---------------------------+------+------+-----+---------+-------+
+| Field                     | Type | Null | Key | Default | Extra |
++---------------------------+------+------+-----+---------+-------+
+| Book_code                 | int  | YES  | MUL | NULL    |       |
+| Student_code              | int  | YES  | MUL | NULL    |       |
+| Staff_code                | int  | YES  | MUL | NULL    |       |
+| Book_issue_date           | date | NO   |     | NULL    |       |
+| Book_expected_return_date | date | NO   |     | NULL    |       |
+| Book_actual_return_date   | date | YES  |     | NULL    |       |
+| Bookid                    | int  | NO   | PRI | NULL    |       |
++---------------------------+------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> desc department_masters;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Dept_code | int         | NO   | PRI | NULL    |       |
+| Dept_name | varchar(50) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> show tables;
++------------------------+
+| Tables_in_ishwarimohit |
++------------------------+
+| book_masters           |
+| book_transactions      |
+| department_masters     |
+| designation_masters    |
+| staff_masters          |
+| student_marks          |
+| students_masters       |
++------------------------+
+7 rows in set (0.00 sec)
+
+mysql> select students_masters.student_code, students_masters.student_name, department_masters.dept_name,student_marks.subject1=30, student_marks.subject2=30, student_marks.subject3=30
+    -> from students_masters
+    -> join student_marks on students_masters.student_code=student_marks.student_code
+    -> join department_master.dept_code on students_masters.dept_code=department_masters.dept_code
+    -> where department_masters.dept_code between 100 and 200;
+ERROR 1049 (42000): Unknown database 'department_master'
+mysql> select students_masters.student_code, students_masters.student_name, department_masters.dept_name,student_marks.subject1=30, student_marks.subject2=30, student_marks.subject3=30
+    -> from students_masters
+    -> join student_marks on students_masters.student_code=student_marks.student_code
+    -> join department_masters.dept_code on students_masters.dept_code=department_masters.dept_code
+    -> where department_masters.dept_code between 100 and 200;
+ERROR 1049 (42000): Unknown database 'department_masters'
+mysql> select students_masters.student_code, students_masters.student_name, department_masters.dept_name,student_marks.subject1=30, student_marks.subject2=30, student_marks.subject3=30
+    -> from students_masters
+    -> join student_marks on students_masters.student_code=student_marks.student_code
+    -> join department_master on students_masters.dept_code=department_masters.dept_code
+    -> where department_masters.dept_code between 100 and 200;
+ERROR 1146 (42S02): Table 'ishwarimohit.department_master' doesn't exist
+mysql> select students_masters.student_code, students_masters.student_name, department_masters.dept_name,student_marks.subject1=30, student_marks.subject2=30, student_marks.subject3=30
+    -> join student_marks on students_masters.student_code=student_marks.student_code
+    -> join department_master.dept_code on students_masters.dept_code=department_masters.dept_code;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'join student_marks on students_masters.student_code=student_marks.student_code
+j' at line 2
+mysql> select students_masters.student_code, students_masters.student_name, department_masters.dept_name,student_marks.subject1=30, student_marks.subject2=30, student_marks.subject3=30
+    -> from students_masters
+    -> join student_marks on students_masters.student_code=student_marks.student_code
+    -> join department_masters on students_masters.dept_code=department_masters.dept_code
+    -> where department_masters.dept_code between 100 and 200;
++--------------+--------------+-----------+---------------------------+---------------------------+---------------------------+
+| student_code | student_name | dept_name | student_marks.subject1=30 | student_marks.subject2=30 | student_marks.subject3=30 |
++--------------+--------------+-----------+---------------------------+---------------------------+---------------------------+
+|          101 | Ishwari      | CSE       |                         1 |                         0 |                         0 |
+|          102 | Mohit        | AIDS      |                         0 |                         0 |                         0 |
++--------------+--------------+-----------+---------------------------+---------------------------+---------------------------+
+2 rows in set (0.00 sec)
+
+mysql>
